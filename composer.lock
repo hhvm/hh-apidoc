@@ -1,0 +1,306 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "ac3e92acadd8f288ac91ba457d03a7bf",
+    "packages": [
+        {
+            "name": "facebook/definition-finder",
+            "version": "v1.7.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/definition-finder.git",
+                "reference": "bd66100f476ed72759a02e437e26dc23cb6b6416"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/bd66100f476ed72759a02e437e26dc23cb6b6416",
+                "reference": "bd66100f476ed72759a02e437e26dc23cb6b6416",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "~3.23",
+                "hhvm/hhvm-autoload": "^1.6",
+                "hhvm/hsl": "^1.2"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "~5.1",
+                "facebook/fbexpect": "^0.4.0",
+                "hhvm/systemlib-extractor": "~1.0",
+                "phpunit/phpunit": "~5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ],
+                "files": [
+                    "autoload_files.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Find definitions in PHP or Hack files. Useful for autoloaders.",
+            "homepage": "https://github.com/hhvm/definitions-finder",
+            "keywords": [
+                "autoload",
+                "definitions",
+                "hack",
+                "hhvm"
+            ],
+            "time": "2018-03-06T18:24:13+00:00"
+        },
+        {
+            "name": "facebook/fbmarkdown",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/fbmarkdown.git",
+                "reference": "75bf4df174355522159da82bf92940dd3191857c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/fbmarkdown/zipball/75bf4df174355522159da82bf92940dd3191857c",
+                "reference": "75bf4df174355522159da82bf92940dd3191857c",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm/hhvm-autoload": "^1.5",
+                "hhvm/hsl": "^1.1",
+                "hhvm/type-assert": "^3.1"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "~5.7",
+                "facebook/fbexpect": "^0.4.0",
+                "hhvm/hhast": "^1.0",
+                "phpunit/phpunit": "~5.7"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Markdown parser and renderer for Hack",
+            "keywords": [
+                "facebook",
+                "gfm",
+                "hack",
+                "markdown"
+            ],
+            "time": "2018-03-29T20:17:30+00:00"
+        },
+        {
+            "name": "facebook/hh-clilib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:hhvm/hh-clilib.git",
+                "reference": "b5e3f32d4bd6f4e8561ebd6a4fc4aa30496e0aa9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/b5e3f32d4bd6f4e8561ebd6a4fc4aa30496e0aa9",
+                "reference": "b5e3f32d4bd6f4e8561ebd6a4fc4aa30496e0aa9",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm/hsl": "^1.4",
+                "hhvm/type-assert": "^3.2"
+            },
+            "type": "library",
+            "support": {
+                "source": "https://github.com/hhvm/hh-clilib/tree/master",
+                "issues": "https://github.com/hhvm/hh-clilib/issues"
+            },
+            "time": "2018-04-04T22:41:59+00:00"
+        },
+        {
+            "name": "fredemmott/hack-error-suppressor",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fredemmott/hack-error-suppressor.git",
+                "reference": "cb145c771b50f4f4eeec8c9cac4740df3d486a12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fredemmott/hack-error-suppressor/zipball/cb145c771b50f4f4eeec8c9cac4740df3d486a12",
+                "reference": "cb145c771b50f4f4eeec8c9cac4740df3d486a12",
+                "shasum": ""
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.6",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Fred Emmott",
+                    "email": "fred@fredemmott.co.uk"
+                }
+            ],
+            "description": "Suppress HHVM's automatic conversion of typechecker errors to fatals.",
+            "time": "2017-05-02T03:07:37+00:00"
+        },
+        {
+            "name": "hhvm/hhast",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/hhast.git",
+                "reference": "97916ba3945d95f89ba6e33ceadbde16bfa0e02e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hhast/zipball/97916ba3945d95f89ba6e33ceadbde16bfa0e02e",
+                "reference": "97916ba3945d95f89ba6e33ceadbde16bfa0e02e",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "^3.24.0",
+                "hhvm/hsl": "^1.0.0",
+                "hhvm/type-assert": "^3.1"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.7",
+                "facebook/fbexpect": "^0.4.0",
+                "facebook/hack-codegen": "~3.0.3",
+                "hhvm/hhvm-autoload": "^1.5",
+                "phpunit/phpunit": "^5.7"
+            },
+            "bin": [
+                "bin/hhast-lint"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2018-03-01T22:15:51+00:00"
+        },
+        {
+            "name": "hhvm/hhvm-autoload",
+            "version": "v1.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/hhvm-autoload.git",
+                "reference": "2beebbb5982e77237ec853ee1231860c3c295bf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hhvm-autoload/zipball/2beebbb5982e77237ec853ee1231860c3c295bf3",
+                "reference": "2beebbb5982e77237ec853ee1231860c3c295bf3",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "fredemmott/hack-error-suppressor": "^1.0",
+                "hhvm": "^3.23"
+            },
+            "replace": {
+                "facebook/hhvm-autoload": "1.*"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "bin": [
+                "bin/hh-autoload"
+            ],
+            "type": "composer-plugin",
+            "extra": {
+                "class": [
+                    "Facebook\\AutoloadMap\\ComposerPlugin"
+                ]
+            },
+            "autoload": {
+                "classmap": [
+                    "src/Writer.php",
+                    "src/"
+                ],
+                "files": [
+                    "src/AutoloadMap.php",
+                    "src/Config.php",
+                    "src/TypeAssert.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2018-02-27T18:31:14+00:00"
+        },
+        {
+            "name": "hhvm/hsl",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/hsl.git",
+                "reference": "2d40281ec595b25a09bbe51d9216edbf1ad55a42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/hsl/zipball/2d40281ec595b25a09bbe51d9216edbf1ad55a42",
+                "reference": "2d40281ec595b25a09bbe51d9216edbf1ad55a42",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "^3.23.2",
+                "hhvm/hhvm-autoload": "^1.4"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "^5.7",
+                "facebook/fbexpect": "^0.4",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "The Hack Standard Library",
+            "time": "2018-03-09T21:53:48+00:00"
+        },
+        {
+            "name": "hhvm/type-assert",
+            "version": "v3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hhvm/type-assert.git",
+                "reference": "8f70814c8268f50e2fa728893d3ad9cad73df398"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hhvm/type-assert/zipball/8f70814c8268f50e2fa728893d3ad9cad73df398",
+                "reference": "8f70814c8268f50e2fa728893d3ad9cad73df398",
+                "shasum": ""
+            },
+            "require": {
+                "hhvm": "^3.23.0",
+                "hhvm/hhvm-autoload": "^1.4",
+                "hhvm/hsl": "^1.0"
+            },
+            "require-dev": {
+                "91carriage/phpunit-hhi": "~5.1",
+                "facebook/fbexpect": "^0.2.0 | ^0.3.0 | ^0.4.0",
+                "phpunit/phpunit": "~5.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Convert untyped data to typed data",
+            "keywords": [
+                "TypeAssert",
+                "hack"
+            ],
+            "time": "2018-02-09T17:05:23+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "facebook/hh-clilib": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

@@ -1,0 +1,15 @@
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:hhvm/hh-clilib.git"
+    }
+  ],
+  "require": {
+    "hhvm/hsl": "^1.4",
+    "facebook/fbmarkdown": "^1.0",
+    "facebook/hh-clilib": "dev-master",
+    "facebook/definition-finder": "^1.7",
+    "hhvm/hhast": "^1.0"
+  }
+}
