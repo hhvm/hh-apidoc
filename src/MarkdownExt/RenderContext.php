@@ -21,15 +21,10 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
   private ?Documentable $documentable;
   private ?IPathProvider<?string> $pathProvider;
 
-<<<<<<< HEAD
-  /** If we something that looks like a symbole reference but we can't find it
-   * in thecurrent namespace/class, this provides a list of other places to
-=======
   /** Places to always look for symbols.
    *
    * If we have something that looks like a symbol reference, but we can't find
    * it in the current namespace/class, this provides a list of other places to
->>>>>>> suggested changes
    * look for commonly used symbols.
    */
   public function getImplicitPrefixes(): keyset<string> {
