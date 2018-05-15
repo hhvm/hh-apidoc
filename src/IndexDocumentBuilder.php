@@ -86,7 +86,7 @@ class IndexDocumentBuilder {
       |> Vec\sort($$)
       |> Vec\map(
         $$,
-        $name ==> '- ['.$name.']('.$get_path($name).')',
+        $name ==> '- ['.Str\replace($name, "\\", "\\\\").']('.$get_path($name).')',
       )
       |> Str\join($$, "\n")
       |> "## ".$title."\n\n".$$;

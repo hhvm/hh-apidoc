@@ -11,6 +11,7 @@
 namespace Facebook\HHAPIDoc\PageSections;
 
 use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
+use namespace HH\Lib\Str;
 
 class NameHeading extends PageSection {
   public function getMarkdown(): string {
@@ -25,6 +26,6 @@ class NameHeading extends PageSection {
       $md .= '()';
     }
 
-    return $md;
+    return Str\replace($md, "\\", "\\\\");
   }
 }
