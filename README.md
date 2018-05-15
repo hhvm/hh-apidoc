@@ -18,8 +18,8 @@ The [Hack Standard Library](https://github.com/hhvm/hsl) is a good place to test
 
 1. Clone the [HSL](https://github.com/hhvm/hsl) repo.
 1. `cd path/to/cloned/hsl`
-1. `hhvm bin/hh-apidoc -f html -o /tmp/hsl-docs .`
-    1. The `-f` means format output to HTML (default is markdown, `-o` is where to output the resulting files and `.` means the current directory
+1. `hhvm bin/hh-apidoc -o /tmp/hsl-docs .`
+    1. The `-o` is where to output the resulting files (currently this directory must already exist) and `.` means use the current directory as the source.
 1. `cd /tmp/hsl-docs`
 1. See generated `.html` files
     1. You can open `index.html` in your favorite browser to see the generated documentation.
