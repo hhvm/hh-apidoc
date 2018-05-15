@@ -32,6 +32,14 @@ function stringify_functionish_signature(
   }
 
   if ($function instanceof ScannedMethod) {
+    if ($function->isAbstract()) {
+      $ret .= 'abstract ';
+    }
+
+    if ($function->isFinal()) {
+      $ret .= 'final ';
+    }
+
     if ($function->isPublic()) {
       $ret .= 'public ';
     } else if ($function->isPrivate()) {

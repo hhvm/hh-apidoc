@@ -102,6 +102,13 @@ class InterfaceSynopsis extends PageSection {
       $ret .= 'namespace '.$ns." {\n";
     }
 
+    if ($c->isAbstract()) {
+      $ret .= 'abstract ';
+    }
+    if ($c->isFinal()) {
+      $ret .= 'final ';
+    }
+
     if ($c instanceof ScannedBasicClass) {
       $ret .= 'class ';
     } else if ($c instanceof ScannedInterface) {
