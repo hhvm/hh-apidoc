@@ -15,6 +15,9 @@ use type Facebook\HHAPIDoc\Documentable;
 
 use namespace HH\Lib\{Dict, Str, Vec};
 
+/** Create `Documentable`s for all the supported defintions available
+ * in the `Facebook\DefinitionFinder\BaseParser`.
+ */
 function from_parser(BaseParser $parser): vec<Documentable> {
   $top_level = Vec\concat(
     $parser->getClasses(),
