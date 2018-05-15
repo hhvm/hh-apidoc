@@ -10,8 +10,15 @@
 
 namespace Facebook\HHAPIDoc\DocBlock;
 
+/** The documentation information for a parameter. */
 type ParameterInfo = shape(
+  /** The name of the parameter */
   'name' => string,
+  /** The valid types for the parameter */
   'types' => vec<string>,
+  /** The human-readable text for the parameter.
+   *
+   * Likely to be GitHub-Flavored-Markdown.
+   */
   'text' => ?string,
 );
