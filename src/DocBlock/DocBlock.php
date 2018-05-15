@@ -12,12 +12,25 @@ namespace Facebook\HHAPIDoc\DocBlock;
 
 use namespace HH\Lib\{C, Math, Str, Vec};
 
+/** Class to represent and parse a docblock (a.k.a. doc comment).
+ *
+ * These comments always are delimeted by `/**` and `*\/`.
+ *
+ * DocBlocks are treated as GitHub Flavored Markdown, and standard
+ * JavaDoc style tags are supported, such as `@param`, `@see`, and
+ * `@return`.
+ */
 final class DocBlock {
   private ?string $summary;
   private ?string $description;
 
   private vec<(string, ?string)> $tags = vec[];
 
+  /** Create and parse a documentation block.
+   *
+   * @param $rawDocBlock A raw documentation block, as returned by reflection or
+   *   definition-finder.
+   */
   public function __construct(private string $rawDocBlock) {
     $lines = $rawDocBlock
       |> Str\trim($$)
@@ -36,7 +49,7 @@ final class DocBlock {
         $line = Str\strip_prefix($line, '* ');
       } else {
         $line = Str\strip_prefix($line, '*');
-     }
+      }
 
       if (Str\starts_with($line, '@')) {
         $finished_content = true;
@@ -115,14 +128,30 @@ final class DocBlock {
     }
   }
 
+  /** Get the summary of the item being documented.
+   *
+   * This is the content of the doccomment until the first empty line or period.
+   *
+   * In the future, this may parse the doccomment as markdown, and return
+   * the content until the first empty line _or plain text_ period.
+   */
   public function getSummary(): ?string {
     return $this->summary;
   }
 
+  /** Get the description of the item being documented.
+   *
+   * This is anything that is not an `@tag` or summary.
+   */
   public function getDescription(): ?string {
     return $this->description;
   }
 
+  /** Return the content of all tags with the specified name.
+   *
+   * For example, `getTagsByName('@param')` will return all
+   * `@param` tags.
+   */
   public function getTagsByName(string $name): vec<string> {
     return $this->tags
       |> Vec\filter(
@@ -136,12 +165,17 @@ final class DocBlock {
             return false;
           }
           return true;
-        }
+        },
       )
-    |> Vec\map($$, $x ==> $x[1])
-    |> Vec\filter_nulls($$);
+      |> Vec\map($$, $x ==> $x[1])
+      |> Vec\filter_nulls($$);
   }
 
+  /** Get the return information for a function.
+   *
+   * There may be multiple `ReturnInfo` results, if there are multiple
+   * `@return` tags in the docblock.
+   */
   public function getReturnInfo(): vec<ReturnInfo> {
     $out = vec[];
     foreach ($this->tags as list($key, $value)) {
@@ -176,6 +210,13 @@ final class DocBlock {
     );
   }
 
+  /** Convert a string type specifiction to a list of types.
+   *
+   * For example:
+   * - `'string'` -> `vec['string']`
+   * - `'Foo|Bar'` -> `vec['Foo', 'Bar']`
+   * - `'[Foo|Bar]'` -> `vec['Foo', 'Bar']`
+   */
   protected static function typeToTypes(?string $type): vec<string> {
     if ($type === null) {
       return vec[];
@@ -187,6 +228,7 @@ final class DocBlock {
       |> Vec\map($$, $x ==> Str\trim($x));
   }
 
+  /** Return information on function parameters from `@param` tags */
   <<__Memoize>>
   public function getParameterInfo(): dict<string, ParameterInfo> {
     $out = dict[];
@@ -235,6 +277,11 @@ final class DocBlock {
     return $out;
   }
 
+  /** Create a new instance if a comment is provided.
+   *
+   * @returns `DocComment` if `$comment` is not null
+   * @returns `null` if `$comment` is null
+   */
   public static function nullable(?string $comment): ?this {
     if ($comment === null) {
       return null;
