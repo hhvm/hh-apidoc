@@ -10,18 +10,21 @@
 
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
-use type Facebook\HHAPIDoc\{
-  Documentable,
-  IPathProvider,
-  OutputFormat,
-};
+use type Facebook\HHAPIDoc\{Documentable, IPathProvider, OutputFormat};
 use namespace HH\Lib\Keyset;
 
+/** Context for rendering markdown using FBMarkdown and
+ * hh-apidoc's extensions.
+ */
 class RenderContext extends \Facebook\Markdown\RenderContext {
   private ?OutputFormat $format;
   private ?Documentable $documentable;
   private ?IPathProvider<?string> $pathProvider;
 
+  /** If we something that looks like a symbole reference but we can't find it
+   * in thecurrent namespace/class, this provides a list of other places to
+   * look for commonly used symbols.
+   */
   public function getImplicitPrefixes(): keyset<string> {
     return keyset[
       "HH\\",
@@ -32,13 +35,15 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
   /**
    * Set path provider used for internal references.
    *
-   * This should usually be an instance of `IndexedPathProvider`.
+   * @param $provider An `IPathProvider` that returns null if the symbol does
+   *   not exist. This should usually be an `IndexedPathProvider`.
    */
   public function setPathProvider(IPathProvider<?string> $provider): this {
     $this->pathProvider = $provider;
     return $this;
   }
 
+  /** Return the path provider set with `setPathProvider()` */
   public function getPathProvider(): IPathProvider<?string> {
     $p = $this->pathProvider;
     invariant(
@@ -49,6 +54,7 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
     return $p;
   }
 
+  /** Set the item currently being documented. */
   public function setDocumentable(Documentable $documentable): this {
     invariant(
       $this->documentable === null,
@@ -59,6 +65,7 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
     return $this;
   }
 
+  /** Return the item we're currently generating documentation for. */
   public function getDocumentable(): Documentable {
     $doc = $this->documentable;
     invariant(
@@ -69,11 +76,23 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
     return $doc;
   }
 
+  /** Set the desired documentation format.
+   *
+   * This allows for different Markdown to be generated for different formats.
+   */
   public function setOutputFormat(OutputFormat $f): this {
     $this->format = $f;
     return $this;
   }
 
+  /** Get the format of documentation we are generated.
+   *
+   * This should be used minimally; users should generally expect identical
+   * output in different formats.
+   *
+   * For example, syntax highlighting is applied to code blocks when we are
+   * generating HTML.
+   */
   public function getOutputFormat(): OutputFormat {
     $f = $this->format;
     invariant(
@@ -84,6 +103,7 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
     return $f;
   }
 
+  /** Clear all per-`Documentable` state */
   <<__Override>>
   public function resetFileData(): this {
     parent::resetFileData();
