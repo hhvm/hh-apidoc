@@ -13,6 +13,7 @@ namespace Facebook\HHAPIDoc\PageSections;
 use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 
 class Description extends PageSection {
+  <<__Override>>
   public function getMarkdown(): ?string {
     return $this->docBlock?->getDescription();
   }

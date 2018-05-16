@@ -16,6 +16,7 @@ use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 use namespace HH\Lib\{C, Vec, Str};
 
 class FunctionishReturnValues extends PageSection {
+  <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
     if (!$f instanceof ScannedFunctionAbstract) {
