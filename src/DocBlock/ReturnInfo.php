@@ -10,7 +10,13 @@
 
 namespace Facebook\HHAPIDoc\DocBlock;
 
+/** The documented information on what a function or method returns. */
 type ReturnInfo = shape(
+  /** The types that the function or method can return. */
   'types' => vec<string>,
+  /** Free-form text.
+   *
+   * Likely to be GitHub-Flavored-Markdown.
+   */
   'text' => ?string,
 );
