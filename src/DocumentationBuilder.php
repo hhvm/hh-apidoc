@@ -13,12 +13,26 @@ namespace Facebook\HHAPIDoc;
 use namespace Facebook\Markdown;
 use namespace HH\Lib\{Str, Vec};
 
+/** Main entrypoint to generate a document for a specific `Documentable` */
 class DocumentationBuilder {
+  /**
+   * Create a new instance.
+   *
+   * @param $context Context such as desired output format
+   */
   public function __construct(
     private DocumentationBuilderContext $context,
   ) {
   }
 
+  /** @selfdocumenting */
+  protected function getContext(): DocumentationBuilderContext {
+    return $this->context;
+  }
+
+  /**
+   * List of instantiable `PageSection` subclasses to include in the document.
+   */
   protected function getPageSections(
   ): keyset<classname<PageSections\PageSection>> {
     return keyset[
@@ -33,11 +47,16 @@ class DocumentationBuilder {
     ];
   }
 
+  /** Produce the actual documentation as a string.
+   *
+   * This will be in the format specified by the context that was passed to
+   * `__construct()`
+   */
   public function getDocumentation(
     Documentable $documentable,
   ): string {
     $body = $this->getDocumentationBody($documentable);
-    switch ($this->context->getOutputFormat()) {
+    switch ($this->getContext()->getOutputFormat()) {
       case OutputFormat::MARKDOWN:
         return $body;
       case OutputFormat::HTML:
@@ -45,6 +64,14 @@ class DocumentationBuilder {
     }
   }
 
+  /**
+   * Generate a full HTML document from a body.
+   *
+   * @param $body the main content of the document in HTML format,
+   *   suitable for insertion into`<body>` tags. It does not include the
+   *   `<body>` tags.
+   * @return a full HTML document, including the outermost `<html>` tag.
+   */
   protected function wrapHTMLBody(Documentable $what, string $body): string {
     $def = $what['definition'];
     $parent = $what['parent'];
@@ -65,13 +92,21 @@ class DocumentationBuilder {
     );
   }
 
+  /** Get the main body of the documentation in the context-appropriate
+   * output format.
+   *
+   * In the case of HTML, this should be suitable for insertion into `<body>`
+   * tags, but should not include the `<body>` tag.
+   *
+   * @see wrapHTMLBody
+   */
   protected function getDocumentationBody(
     Documentable $documentable,
   ): string {
     $docs = DocBlock\DocBlock::nullable(
       $documentable['definition']->getDocComment(),
     );
-    $ctx = $this->context;
+    $ctx = $this->getContext();
     $md = $this->getPageSections()
       |> Vec\map($$, $s ==> (new $s($ctx, $documentable, $docs))->getMarkdown())
       |> Vec\filter_nulls($$)
@@ -81,19 +116,19 @@ class DocumentationBuilder {
     $ast = Markdown\parse($parser_ctx, $md);
 
     $render_ctx = (new MarkdownExt\RenderContext())
-      ->setOutputFormat($this->context->getOutputFormat())
+      ->setOutputFormat($this->getContext()->getOutputFormat())
       ->setDocumentable($documentable)
       ->setPathProvider(
         new IndexedPathProvider(
-          $this->context->getIndex(),
-          $this->context->getPathProvider(),
+          $this->getContext()->getIndex(),
+          $this->getContext()->getPathProvider(),
         ),
       )
       ->appendFilters(
         new MarkdownExt\AutoLinkifyFilter(),
         new MarkdownExt\SyntaxHighlightingFilter(),
       );
-    switch ($this->context->getOutputFormat()) {
+    switch ($this->getContext()->getOutputFormat()) {
       case OutputFormat::MARKDOWN:
         $renderer = new Markdown\MarkdownRenderer($render_ctx);
         break;
