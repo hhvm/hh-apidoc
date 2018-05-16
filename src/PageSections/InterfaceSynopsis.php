@@ -20,7 +20,8 @@ use type Facebook\DefinitionFinder\{
 };
 use namespace HH\Lib\{Str, Vec};
 
-class InterfaceSynopsis extends PageSection {
+/** Render the outline of a class, interface, or trait */
+final class InterfaceSynopsis extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $c = $this->definition;
@@ -34,7 +35,7 @@ class InterfaceSynopsis extends PageSection {
       $this->getMethodList($c);
   }
 
-  protected function getMethodList(
+  private function getMethodList(
     ScannedClass $c,
   ): string {
     return $c->getMethods()
@@ -43,7 +44,7 @@ class InterfaceSynopsis extends PageSection {
       |> Str\join($$, "\n");
   }
 
-  protected function getMethodListItem(
+  private function getMethodListItem(
     ScannedClass $c,
     ScannedMethod $m,
   ): string {
@@ -73,7 +74,7 @@ class InterfaceSynopsis extends PageSection {
     );
   }
 
-  protected function getLinkPathForMethod(
+  private function getLinkPathForMethod(
     ScannedClass $c,
     ScannedMethod $m,
   ): ?string {
@@ -93,7 +94,7 @@ class InterfaceSynopsis extends PageSection {
     );
   }
 
-  protected function getInheritanceInformation(
+  private function getInheritanceInformation(
     ScannedClass $c,
   ): string {
     $ret = '';

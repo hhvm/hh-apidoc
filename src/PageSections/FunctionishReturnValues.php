@@ -15,7 +15,8 @@ use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 
 use namespace HH\Lib\{C, Vec, Str};
 
-class FunctionishReturnValues extends PageSection {
+/** Return information on possible return values for a function or method. */
+final class FunctionishReturnValues extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
@@ -34,7 +35,7 @@ class FunctionishReturnValues extends PageSection {
       |> "## Return Values\n\n".$$;
   }
 
-  protected static function getReturnValueInformation(
+  private static function getReturnValueInformation(
     ScannedFunctionAbstract $f,
     DocBlock\ReturnInfo $docs,
   ): string {

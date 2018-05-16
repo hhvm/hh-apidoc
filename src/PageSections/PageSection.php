@@ -20,11 +20,26 @@ use type Facebook\DefinitionFinder\{
   ScannedClass,
 };
 
+/** Base class for all page sections.
+ *
+ * A page is generated for each `Documentable`; each piece of content
+ * (e.g. signature, description) is a section.
+ *
+ * Sections produce Markdown for a Documentable
+ */
 <<__ConsistentConstruct>>
 abstract class PageSection {
+  /** The definition currently being documented */
   protected ScannedBase $definition;
+  /** The parent definition of the current definition.
+   *
+   * This will be `null` for top-level definitions such as classes and
+   * functions, however for definitions such as methods, it will be set to the
+   * containing class, interface, or trait.
+   */
   protected ?ScannedClass $parent;
 
+  /** @selfdocumenting */
   public function __construct(
     protected DocumentationBuilderContext $context,
     protected Documentable $documentable,
@@ -34,5 +49,12 @@ abstract class PageSection {
     $this->parent = $documentable['parent'];
   }
 
+  /** Create markdown for this page section.
+   *
+   * @returns `null` if the section should not be rendered; for example:
+   *   - it might not be appropriate for the current `OutputFormat`
+   *   - it might not be relevant to the current type of `Documentable`
+   *   - there might not be any content provided for the current `Documentable`
+   */
   abstract public function getMarkdown(): ?string;
 }
