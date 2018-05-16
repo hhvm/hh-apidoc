@@ -10,7 +10,10 @@
 
 namespace Facebook\HHAPIDoc;
 
+/** The format of documentation to generate */
 enum OutputFormat: string {
+  /** GitHub Flavored Markdown */
   MARKDOWN = 'markdown';
+  /** @selfdocumenting */
   HTML = 'html';
 }
