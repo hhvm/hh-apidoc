@@ -17,6 +17,12 @@ use namespace Facebook\Markdown;
 use namespace Facebook\HHAST;
 use namespace HH\Lib\{C, Dict, Str, Vec};
 
+/**
+ * Apply syntax highlighting to Hack code blocks.
+ *
+ * This is whitelisted for specific `OutputFormat`s - when generating generic
+ * Markdown, we leave syntax highlighting for the final renderer.
+ */
 final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
   const keyset<string> KEYWORDS = keyset[
     'hh',
@@ -24,6 +30,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     'Hack',
     'hack',
   ];
+
   <<__Override>>
   public function filter(
     Markdown\RenderContext $context,
@@ -51,6 +58,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     )];
   }
 
+  /** Convert an HHAST FFP AST node into an HTML string. */
   protected static function getHTML(HHAST\EditableNode $node): string {
     if ($node instanceof HHAST\Missing) {
       return '';
