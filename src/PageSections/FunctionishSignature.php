@@ -13,6 +13,7 @@ namespace Facebook\HHAPIDoc\PageSections;
 use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 
 class FunctionishSignature extends PageSection {
+  <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
     if (!$f instanceof ScannedFunctionAbstract) {

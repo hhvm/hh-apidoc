@@ -11,6 +11,7 @@
 namespace Facebook\HHAPIDoc\PageSections;
 
 class Summary extends PageSection {
+  <<__Override>>
   public function getMarkdown(): ?string {
     return $this->docBlock?->getSummary();
   }

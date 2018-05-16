@@ -14,6 +14,7 @@ use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 use namespace HH\Lib\Str;
 
 class NameHeading extends PageSection {
+  <<__Override>>
   public function getMarkdown(): string {
     $md = '# ';
     if ($this->parent) {
