@@ -10,9 +10,17 @@
 
 namespace Facebook\HHAPIDoc;
 
+/** An index of all the `Documentable`s that we should act on.
+ *
+ * This can be used for auto-linking, generating index documented, or other
+ * purposes */
 type Index = shape(
+  /** A list of all function names */
   'functions' => keyset<string>,
+  /** A map from class names to a list of method names */
   'classes' => dict<string, keyset<string>>,
+  /** A map from interfaces names to a list of method names */
   'interfaces' => dict<string, keyset<string>>,
+  /** A map from trait names to a list of method names */
   'traits' => dict<string, keyset<string>>,
 );
