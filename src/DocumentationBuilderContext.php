@@ -10,7 +10,16 @@
 
 namespace Facebook\HHAPIDoc;
 
+/** Contextual information required to build documentation. */
 class DocumentationBuilderContext {
+  /** Create an instance.
+   *
+   * @param $format the desired documentation format
+   * @param $index an `Index` of all `Documentable`s. This may be used for
+   *   autolinking.
+   * @param $pathProvider a path provider that returns paths for documentables
+   *   that exist, or null for ones that don't.
+   */
   public function __construct(
     private OutputFormat $format,
     private Index $index,
@@ -18,14 +27,17 @@ class DocumentationBuilderContext {
   ) {
   }
 
+  /** @selfdocumenting */
   public function getOutputFormat(): OutputFormat {
     return $this->format;
   }
 
+  /** @selfdocumenting */
   public function getIndex(): Index {
     return $this->index;
   }
 
+  /** @selfdocumenting */
   public function getPathProvider(): IPathProvider<?string> {
     return $this->pathProvider;
   }
