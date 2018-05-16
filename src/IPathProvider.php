@@ -14,7 +14,7 @@ namespace Facebook\HHAPIDoc;
  *
  * These are used to:
  * - generate links
- * - decided where to create files containing documentation
+ * - decide where to create files containing documentation
  *
  * If `T` is nullable, it should return null if the definition does not exist.
  *
