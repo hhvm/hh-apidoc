@@ -13,12 +13,23 @@ namespace Facebook\HHAPIDoc;
 use namespace Facebook\Markdown;
 use namespace HH\Lib\{C, Keyset, Str, Vec};
 
+/** Generate a document that contains links to all documented definitions. */
 class IndexDocumentBuilder {
+  /** @selfdocumenting */
   public function __construct(
-    protected DocumentationBuilderContext $context,
+    private DocumentationBuilderContext $context,
   ) {
   }
 
+  /** @selfdocumenting */
+  protected function getContext(): DocumentationBuilderContext {
+    return $this->context;
+  }
+
+  /**
+   * Produce the index document in the format specified by the current
+   * context
+   */
   public function getIndexDocument(): string {
     $md = $this->getIndexDocumentMarkdown();
     switch ($this->context->getOutputFormat()) {
@@ -29,6 +40,7 @@ class IndexDocumentBuilder {
     }
   }
 
+  /** @selfdocumenting */
   protected function renderToHTML(
     string $markdown,
   ): string {
@@ -41,6 +53,7 @@ class IndexDocumentBuilder {
       $body."</body></html>\n";
   }
 
+  /** @selfdocumenting */
   protected function getIndexDocumentMarkdown(): string {
     $index = $this->context->getIndex();
     $paths = new IndexedPathProvider($index, $this->context->getPathProvider());
@@ -72,6 +85,16 @@ class IndexDocumentBuilder {
       |> "# API Index\n\n".$$;
   }
 
+  /**
+   * Render an index section to Markdown.
+   *
+   * @param $title the title of the section - e.g. 'Classes'
+   * @param $names the names of all the definitions that belong in this section
+   * @param $get_path a callable that takes a name from `$names` and returns
+   *   `null` if a path can't be found, otherwise returns a path suitable for
+   *   linking to for the specified name.
+   * @return string Markdown
+   */
   protected function renderPart(
     string $title,
     keyset<string> $names,
