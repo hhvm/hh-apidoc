@@ -20,6 +20,7 @@ use type Facebook\DefinitionFinder\{
 
 use namespace HH\Lib\C;
 
+/** @selfdocumenting */
 function create_index(
   Traversable<Documentable> $in,
 ): Index {
