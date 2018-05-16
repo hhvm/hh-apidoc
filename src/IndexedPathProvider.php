@@ -12,7 +12,14 @@ namespace Facebook\HHAPIDoc;
 
 use namespace HH\Lib\C;
 
+/** A path provider that wraps another path provider, and returns `null` if
+ * items aren't present in the index */
 final class IndexedPathProvider implements IPathProvider<?string> {
+  /** Create an instance
+   *
+   * @param $index an index of all valid documentable names
+   * @param $paths a path provider to wrap
+   */
   public function __construct(
     private Index $index,
     private IPathProvider<?string> $paths,

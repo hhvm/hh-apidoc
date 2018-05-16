@@ -12,7 +12,13 @@ namespace Facebook\HHAPIDoc;
 
 use namespace HH\Lib\Str;
 
+/** A path provider where all the documents should be in the same directory */
 final class SingleDirectoryPathProvider implements IPathProvider<string> {
+  /** Create an instance.
+   *
+   * @param $extension the filename extension to use - for example, `.md` or
+   *   `.html`
+   */
   public function __construct(
     private string $extension,
   ) {
