@@ -12,7 +12,11 @@ namespace Facebook\HHAPIDoc\PageSections;
 
 use namespace HH\Lib\{C, Str, Vec};
 
-class DeprecationMessage extends PageSection {
+/** Show a deprecation notice if the `Documentable` is deprecated.
+ *
+ * This is currently the case if a `<<__Deprecated>>` attribute is present.
+ */
+final class DeprecationMessage extends PageSection {
   protected function getDeprecationMessage(): ?string {
     $deprecated = $this->definition->getAttributes()['__Deprecated'] ?? null;
     if ($deprecated === null) {

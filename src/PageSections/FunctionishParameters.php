@@ -17,7 +17,8 @@ use type Facebook\DefinitionFinder\{
 };
 use namespace HH\Lib\{C, Str, Vec};
 
-class FunctionishParameters extends PageSection {
+/** Render parameter information for a function or method */
+final class FunctionishParameters extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
@@ -44,7 +45,7 @@ class FunctionishParameters extends PageSection {
       |> "## Parameters\n\n".$$;
   }
 
-  protected static function getParameterListItem(
+  private static function getParameterListItem(
     ScannedParameter $p,
     ?DocBlock\ParameterInfo $docs,
   ): string {
