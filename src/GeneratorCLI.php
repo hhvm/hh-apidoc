@@ -23,6 +23,7 @@ use namespace Facebook\CLILib\CLIOptions;
 use namespace Facebook\Markdown;
 use namespace HH\Lib\{Str, Vec};
 
+/** The main `hh-apidoc` CLI */
 final class GeneratorCLI extends CLIWithRequiredArguments {
   <<__Override>>
   public static function getHelpTextForRequiredArguments(): vec<string> {
@@ -153,6 +154,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     return 0;
   }
 
+  /** Write output only if verbose mode is set */
   private function verboseWrite(string $what): void {
     if ($this->verbosity === 0) {
       return;
