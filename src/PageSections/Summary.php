@@ -10,7 +10,12 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-class Summary extends PageSection {
+/** A short summary of the current item.
+ *
+ * This is usually a one-liner, and is the first sentence or line immediately
+ * following `/**`.
+ */
+final class Summary extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     return $this->docBlock?->getSummary();

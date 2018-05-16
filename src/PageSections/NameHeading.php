@@ -13,7 +13,8 @@ namespace Facebook\HHAPIDoc\PageSections;
 use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 use namespace HH\Lib\Str;
 
-class NameHeading extends PageSection {
+/** Render a heading with the name of the current item */
+final class NameHeading extends PageSection {
   <<__Override>>
   public function getMarkdown(): string {
     $md = '# ';
