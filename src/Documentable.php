@@ -15,8 +15,19 @@ use type Facebook\DefinitionFinder\{
   ScannedClass,
 };
 
+/** An API that can be documented.
+ *
+ * This includes things like classes, functions, methods, etc.
+ */
 type Documentable = shape(
+  /** The item being documented */
   'definition' => ScannedBase,
+  /** The enclosing definition for the current item.
+   *
+   * This will be `null` for top-level definitions like classes and functions,
+   * but for methods, this will be the containing class, interface, or trait.
+   */
   'parent' => ?ScannedClass,
+  /** The files that this definition was inferred from */
   'sources' => vec<string>,
 );
