@@ -15,14 +15,14 @@ use type Facebook\DefinitionFinder\{
   ScannedClass,
 };
 
-/** Something that can be documented.
+/** An API that can be documented.
  *
  * This includes things like classes, functions, methods, etc.
  */
 type Documentable = shape(
   /** The item being documented */
   'definition' => ScannedBase,
-  /** The definition that contains this definition, if any.
+  /** The enclosing definition for the current item.
    *
    * This will be `null` for top-level definitions like classes and functions,
    * but for methods, this will be the containing class, interface, or trait.
