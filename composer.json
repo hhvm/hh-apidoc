@@ -1,4 +1,6 @@
 {
+  "name": "hhvm/hh-apidoc",
+  "license": "MIT",
   "require": {
     "hhvm/hsl": "^1.4|^3.26.0",
     "facebook/fbmarkdown": "^1.0",
