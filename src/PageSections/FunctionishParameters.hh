@@ -37,6 +37,7 @@ final class FunctionishParameters extends PageSection {
       |> Vec\map(
         $$,
         $p ==> static::getParameterListItem(
+          $f->getNamespaceName(),
           $p,
           $docs['$'.$p->getName()] ?? null,
         ),
@@ -46,13 +47,14 @@ final class FunctionishParameters extends PageSection {
   }
 
   private static function getParameterListItem(
+    string $ns,
     ScannedParameter $p,
     ?DocBlock\ParameterInfo $docs,
   ): string {
     $text = $docs['text'] ?? null;
     return \sprintf(
       '- `%s`%s',
-      _Private\stringify_parameter($p, $docs),
+      _Private\stringify_parameter($ns, $p, $docs),
       $text === null ? '' : ' '.$text,
     );
   }

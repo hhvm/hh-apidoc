@@ -15,6 +15,7 @@ use type Facebook\DefinitionFinder\ScannedParameter;
 use namespace HH\Lib\{C, Str, Vec};
 
 function stringify_parameter(
+  string $ns,
   ScannedParameter $parameter,
   ?DocBlock\ParameterInfo $docs,
 ): string {
@@ -24,7 +25,7 @@ function stringify_parameter(
   if ($types) {
     $s .= Str\join($types, '|').' ';
   } else if ($th = $parameter->getTypehint()) {
-    $s .= stringify_typehint($th).' ';
+    $s .= stringify_typehint($ns, $th).' ';
   }
 
   if ($parameter->isVariadic()) {

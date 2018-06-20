@@ -10,15 +10,22 @@
 
 namespace Facebook\HHAPIDoc\PageSections\_Private;
 
-use namespace HH\Lib\Str;
+use namespace HH\Lib\{C, Str};
 
-function normalize_type_in_ns(
-  string $type,
+/** Render `$type` as concisely and unambiguously as possible in the current
+ * namespace */
+function ns_normalize_type(
   string $ns,
+  string $type,
 ): string {
   if ($ns === '') {
     return $type;
   }
+
+  if (C\contains_key(AUTO_IMPORT_TYPES, $type)) {
+    return $type;
+  }
+
   $ns .= "\\";
   if (Str\starts_with($type, $ns)) {
     return Str\strip_prefix($type, $ns);

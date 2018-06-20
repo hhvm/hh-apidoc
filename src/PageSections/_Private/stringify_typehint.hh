@@ -14,14 +14,11 @@ use type Facebook\DefinitionFinder\ScannedTypehint;
 use namespace HH\Lib\{C, Str, Vec};
 
 function stringify_typehint(
+  string $ns,
   ScannedTypehint $type,
 ): string {
-  if (!Str\starts_with_ci($type->getTypeText(), $type->getTypeName())) {
-    return $type->getTypeText();
-  }
-
   $s = $type->isNullable() ? '?' : '';
-  $s .= $type->getTypeName();
+  $s .= ns_normalize_type($ns, $type->getTypeName());
 
   $generics = $type->getGenericTypes();
   if (C\is_empty($generics)) {
@@ -29,7 +26,7 @@ function stringify_typehint(
   }
 
   $s .= $generics
-    |> Vec\map($$, $sub ==> stringify_typehint($sub))
+    |> Vec\map($$, $sub ==> stringify_typehint($ns, $sub))
     |> Str\join($$, ', ')
     |> '<'.$$.'>';
 

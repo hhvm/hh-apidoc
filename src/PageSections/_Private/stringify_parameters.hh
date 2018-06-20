@@ -15,6 +15,7 @@ use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
 use namespace HH\Lib\{Str, Vec};
 
 function stringify_parameters(
+  string $ns,
   StringifyFormat $format,
   ScannedFunctionAbstract $function,
   ?DocBlock $docs,
@@ -22,6 +23,7 @@ function stringify_parameters(
   $params = Vec\map(
     $function->getParameters(),
     $p ==> stringify_parameter(
+      $ns,
       $p,
       $docs?->getParameterInfo()['$'.$p->getName()] ?? null,
     ),

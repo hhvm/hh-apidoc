@@ -41,14 +41,13 @@ final class FunctionishReturnValues extends PageSection {
   ): string {
     $ret = '- ';
 
-    $types = Vec\filter(
-      $docs['types'],
-      $type ==> $type !== '\-' && $type !== '-',
-    );
+    $types =
+      Vec\filter($docs['types'], $type ==> $type !== '\-' && $type !== '-');
     if ($types) {
       $ret .= '`'.Str\join($types, '|').'` - ';
     } else if ($type = $f->getReturnType()) {
-      $ret .= '`'._Private\stringify_typehint($type).'` - ';
+      $ret .=
+        '`'._Private\stringify_typehint($f->getNamespaceName(), $type).'` - ';
     }
     $ret .= $docs['text'];
     return $ret;

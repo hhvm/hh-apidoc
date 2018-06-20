@@ -14,6 +14,7 @@ use type Facebook\DefinitionFinder\ScannedGeneric;
 use namespace HH\Lib\{C, Str, Vec};
 
 function stringify_generics(
+  string $ns,
   vec<ScannedGeneric> $generics,
 ): string {
   if (C\is_empty($generics)) {
@@ -21,7 +22,7 @@ function stringify_generics(
   }
 
   return $generics
-    |> Vec\map($$, $g ==> stringify_generic($g))
+    |> Vec\map($$, $g ==> stringify_generic($ns, $g))
     |> Str\join($$, ', ')
     |> '<'.$$.'>';
 }

@@ -72,12 +72,14 @@ final class InterfaceSynopsis extends PageSection {
     ScannedClass $c,
     ScannedMethod $m,
   ): string {
+    $ns = $c->getNamespaceName();
     $docs = DocBlock::nullable($m->getDocComment());
 
     $ret = $m->isStatic() ? '::' : '->';
     $ret .= $m->getName();
-    $ret .= _Private\stringify_generics($m->getGenericTypes());
+    $ret .= _Private\stringify_generics($ns, $m->getGenericTypes());
     $ret .= _Private\stringify_parameters(
+      $c->getNamespaceName(),
       _Private\StringifyFormat::ONE_LINE,
       $m,
       $docs,
@@ -85,7 +87,7 @@ final class InterfaceSynopsis extends PageSection {
 
     $rt = $m->getReturnType();
     if ($rt !== null) {
-      $ret .= ': '._Private\stringify_typehint($rt);
+      $ret .= ': '._Private\stringify_typehint($ns, $rt);
     }
 
     $summary = $docs?->getSummary();
@@ -144,11 +146,11 @@ final class InterfaceSynopsis extends PageSection {
 
     $p = $c->getParentClassName();
     if ($p !== null) {
-      $ret .= ' extends '._Private\normalize_type_in_ns($p, $ns);
+      $ret .= ' extends '._Private\ns_normalize_type($ns, $p);
     }
     if ($interfaces = $c->getInterfaceNames()) {
       $ret .= $interfaces
-        |> Vec\map($$, $i ==> _Private\normalize_type_in_ns($i, $ns))
+        |> Vec\map($$, $i ==> _Private\ns_normalize_type($ns, $i))
         |> Str\join($$, ', ')
         |> ' implements '.$$;
     }

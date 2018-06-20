@@ -54,11 +54,11 @@ function stringify_functionish_signature(
   }
 
   $ret .= 'function '.$name;
-  $ret .= stringify_generics($function->getGenericTypes());
-  $ret .= stringify_parameters($format, $function, $docs);
+  $ret .= stringify_generics($ns, $function->getGenericTypes());
+  $ret .= stringify_parameters($ns, $format, $function, $docs);
 
   if ($type = $function->getReturnType()) {
-    $ret .= ': '.stringify_typehint($type);
+    $ret .= ': '.stringify_typehint($ns, $type);
   }
 
   $ret .= ';';

@@ -14,6 +14,7 @@ use type Facebook\DefinitionFinder\ScannedGeneric;
 use namespace HH\Lib\{C, Str, Vec};
 
 function stringify_generic(
+  string $ns,
   ScannedGeneric $generic,
 ): string {
   if ($generic->isCovariant()) {
@@ -23,7 +24,7 @@ function stringify_generic(
   } else {
     $base = '';
   }
-  $base .= $generic->getName();
+  $base .= ns_normalize_type($ns, $generic->getName());
 
   $constraints = $generic->getConstraints();
   if (C\is_empty($constraints)) {
