@@ -55,15 +55,9 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
       return vec[$node];
     }
 
-    $matches = [];
-    if (\preg_match('/^[^(<]+/', $content, &$matches) !== 1) {
-      return vec[$node];
-    }
-    $definition = (string) $matches[0];
-
-    if (Str\contains($definition, ' ')) {
-      return vec[$node];
-    }
+    $words = Str\split($content, ' ');
+    $definition = C\firstx($words);
+    $rest = Vec\drop($words, 1) |> Str\join($$, ' ');
 
     invariant(
       $context instanceof RenderContext,
@@ -78,21 +72,26 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
 
     $path = self::getPath(
       $context,
-      $content,
+      $definition,
     );
     if ($path === null) {
       return vec[$node];
     }
 
-    return vec[
+    $ret = vec[
       new Link(vec[$node], $path, null),
     ];
+    if ($rest !== '') {
+      $ret[] = new CodeSpan($rest);
+    }
+    return $ret;
   }
 
   private static function getPath(
     RenderContext $context,
     string $search,
   ): ?string {
+    $search = Str\strip_prefix($search, '?') |> Str\strip_prefix($$, "\\");
     $ends = vec['<', '('];
     foreach ($ends as $end) {
       $idx = Str\search($search, $end);
