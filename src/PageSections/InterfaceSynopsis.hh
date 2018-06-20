@@ -18,7 +18,7 @@ use type Facebook\DefinitionFinder\{
   ScannedMethod,
   ScannedTrait,
 };
-use namespace HH\Lib\{Str, Vec};
+use namespace HH\Lib\{C, Str, Vec};
 
 /** Render the outline of a class, interface, or trait */
 final class InterfaceSynopsis extends PageSection {
@@ -29,19 +29,43 @@ final class InterfaceSynopsis extends PageSection {
       return null;
     }
 
-    return
-      "## Interface Synopsis\n\n".
-      $this->getInheritanceInformation($c)."\n\n".
-      $this->getMethodList($c);
+    $methods = vec[
+      $this->getMethodList(
+        "### Public Methods",
+        $c,
+        Vec\filter($c->getMethods(), $m ==> $m->isPublic()),
+      ),
+      $this->getMethodList(
+        "### Protected Methods",
+        $c,
+        Vec\filter($c->getMethods(), $m ==> $m->isProtected()),
+      ),
+      $this->getMethodList(
+        "### Private Methods",
+        $c,
+        Vec\filter($c->getMethods(), $m ==> $m->isPrivate()),
+      ),
+    ];
+
+    return "## Interface Synopsis\n\n".
+      $this->getInheritanceInformation($c).
+      "\n\n".
+      ($methods |> Vec\filter_nulls($$) |> Str\join($$, "\n\n"));
   }
 
   private function getMethodList(
+    string $header,
     ScannedClass $c,
-  ): string {
-    return $c->getMethods()
-      |> Vec\sort_by($$, $m ==> $m->getName())
+    vec<ScannedMethod> $methods,
+  ): ?string {
+    if (C\is_empty($methods)) {
+      return null;
+    }
+    return $methods
+      |> Vec\sort_by($$, $m ==> ($m->isStatic() ? 'a' : 'b').$m->getName())
       |> Vec\map($$, $m ==> $this->getMethodListItem($c, $m))
-      |> Str\join($$, "\n");
+      |> Str\join($$, "\n")
+      |> $header."\n\n".$$."\n";
   }
 
   private function getMethodListItem(
@@ -88,20 +112,15 @@ final class InterfaceSynopsis extends PageSection {
     if ($c instanceof ScannedTrait) {
       return $pp->getPathForTraitMethod($c->getName(), $m->getName());
     }
-    invariant_violation(
-      "Don't know how to handle type %s",
-      \get_class($c),
-    );
+    invariant_violation("Don't know how to handle type %s", \get_class($c));
   }
 
-  private function getInheritanceInformation(
-    ScannedClass $c,
-  ): string {
+  private function getInheritanceInformation(ScannedClass $c): string {
     $ret = '';
 
     $ns = $c->getNamespaceName();
     if ($ns !== '') {
-      $ret .= 'namespace '.$ns." {\n";
+      $ret .= 'namespace '.$ns."; \n\n";
     }
 
     if ($c->isAbstract()) {
@@ -118,10 +137,7 @@ final class InterfaceSynopsis extends PageSection {
     } else if ($c instanceof ScannedTrait) {
       $ret .= 'trait ';
     } else {
-      invariant_violation(
-        "Don't know what a %s is.",
-        \get_class($c),
-      );
+      invariant_violation("Don't know what a %s is.", \get_class($c));
     }
 
     $ret .= $c->getShortName().' ';
@@ -134,10 +150,6 @@ final class InterfaceSynopsis extends PageSection {
     }
 
     $ret .= ' {...}';
-
-    if ($ns !== '') {
-      $ret .= "\n}";
-    }
 
     return "```Hack\n".$ret."\n```";
   }
