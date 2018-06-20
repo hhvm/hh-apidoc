@@ -140,13 +140,17 @@ final class InterfaceSynopsis extends PageSection {
       invariant_violation("Don't know what a %s is.", \get_class($c));
     }
 
-    $ret .= $c->getShortName().' ';
+    $ret .= $c->getShortName();
 
-    if (($p = $c->getParentClassName()) !== null) {
-      $ret .= 'extends '.$p.' ';
+    $p = $c->getParentClassName();
+    if ($p !== null) {
+      $ret .= ' extends '._Private\normalize_type_in_ns($p, $ns);
     }
     if ($interfaces = $c->getInterfaceNames()) {
-      $ret .= 'implements '.Str\join($interfaces, ', ');
+      $ret .= $interfaces
+        |> Vec\map($$, $i ==> _Private\normalize_type_in_ns($i, $ns))
+        |> Str\join($$, ', ')
+        |> ' implements '.$$;
     }
 
     $ret .= ' {...}';
