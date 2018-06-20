@@ -135,6 +135,9 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         $prefix .= '/';
       }
     }
+    if (!\is_dir($prefix)) {
+      \mkdir($prefix);
+    }
 
     $this->getStdout()->write("Generating documentation...\n");
     foreach ($documentables as $documentable) {
