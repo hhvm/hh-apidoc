@@ -55,16 +55,31 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
       return vec[$node];
     }
 
-    $words = Str\split($content, ' ');
-    $definition = C\firstx($words);
-    $rest = Vec\drop($words, 1) |> Str\join($$, ' ');
-
     invariant(
       $context instanceof RenderContext,
       'Expected render context to be a %s',
       RenderContext::class,
     );
     $name = $context->getDocumentable()['definition']->getName();
+
+
+    $words = Str\split($content, ' ');
+    $definition = C\firstx($words);
+
+    $leading = '';
+    $trailing = Vec\drop($words, 1) |> Str\join($$, ' ');
+    if ($trailing !== '') {
+      $trailing = ' '.$trailing;
+    }
+
+    if (Str\starts_with($definition, '?')) {
+      $leading = '?';
+      $definition = Str\slice($definition, 1);
+    }
+
+    if (!\preg_match('/^[a-zA-Z\\\\]/', $definition)) {
+      return vec[$node];
+    }
 
     if (Str\ends_with($name, $definition)) {
       return vec[$node];
@@ -74,15 +89,21 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
       $context,
       $definition,
     );
+
     if ($path === null) {
       return vec[$node];
     }
 
-    $ret = vec[
-      new Link(vec[$node], $path, null),
-    ];
-    if ($rest !== '') {
-      $ret[] = new CodeSpan($rest);
+    $inner = new CodeSpan($definition);
+    $this->seen[] = $inner;
+
+    $ret = vec[];
+    if ($leading !== '') {
+      $ret[] = new CodeSpan($leading);
+    }
+    $ret[] = new Link(vec[$inner], $path, null);
+    if ($trailing !== '') {
+      $ret[] = new CodeSpan($trailing);
     }
     return $ret;
   }
