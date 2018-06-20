@@ -15,6 +15,10 @@ namespace Facebook\HHAPIDoc;
  * This can be used for auto-linking, generating index documented, or other
  * purposes */
 type Index = shape(
+  /** A list of all transparent type aliases */
+  'types' => keyset<string>,
+  /** A list of all opaque type aliases */
+  'newtypes' => keyset<string>,
   /** A list of all function names */
   'functions' => keyset<string>,
   /** A map from class names to a list of method names */

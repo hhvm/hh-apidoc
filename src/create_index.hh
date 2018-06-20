@@ -16,6 +16,8 @@ use type Facebook\DefinitionFinder\{
   ScannedInterface,
   ScannedMethod,
   ScannedTrait,
+  ScannedType,
+  ScannedNewtype,
 };
 
 use namespace HH\Lib\C;
@@ -25,6 +27,8 @@ function create_index(
   Traversable<Documentable> $in,
 ): Index {
   $index = shape(
+    'types' => keyset[],
+    'newtypes' => keyset[],
     'functions' => keyset[],
     'classes' => dict[],
     'interfaces' => dict[],
@@ -37,6 +41,14 @@ function create_index(
 
     if ($def instanceof ScannedFunction) {
       $index['functions'][] = $name;
+      continue;
+    }
+    if ($def instanceof ScannedType) {
+      $index['types'][] = $name;
+      continue;
+    }
+    if ($def instanceof ScannedNewtype) {
+      $index['newtypes'][] = $name;
       continue;
     }
     if ($def instanceof ScannedBasicClass) {

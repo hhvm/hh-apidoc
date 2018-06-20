@@ -40,4 +40,10 @@ interface IPathProvider<+T as ?string> {
 
   /** @selfdocumenting */
   public function getPathForFunction(string $function): T;
+
+  /** @selfdocumenting */
+  public function getPathForTransparentTypeAlias(string $name): T;
+
+  /** @selfdocumenting */
+  public function getPathForOpaqueTypeAlias(string $name): T;
 }

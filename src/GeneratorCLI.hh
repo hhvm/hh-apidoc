@@ -63,44 +63,6 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     ];
   }
 
-  private function getPathForDocumentable(
-    IPathProvider<string> $provider,
-    Documentable $what,
-  ): string {
-    $def = $what['definition'];
-    if ($def instanceof ScannedBasicClass) {
-      return $provider->getPathForClass($def->getName());
-    }
-    if ($def instanceof ScannedInterface) {
-      return $provider->getPathForInterface($def->getName());
-    }
-    if ($def instanceof ScannedTrait) {
-      return $provider->getPathForTrait($def->getName());
-    }
-    if ($def instanceof ScannedFunction) {
-      return $provider->getPathForFunction($def->getName());
-    }
-    if ($def instanceof ScannedMethod) {
-      $p = $what['parent'];
-      if ($p instanceof ScannedBasicClass) {
-        return $provider->getPathForClassMethod($p->getName(), $def->getName());
-      }
-      if ($p instanceof ScannedInterface) {
-        return $provider->getPathForInterfaceMethod(
-          $p->getName(),
-          $def->getName(),
-        );
-      }
-      if ($p instanceof ScannedTrait) {
-        return $provider->getPathForTraitMethod(
-          $p->getName(),
-          $def->getName(),
-        );
-      }
-    }
-    invariant_violation("Failed to find path for %s", \get_class($def));
-  }
-
   private function parse(): vec<Documentable> {
     return $this->getArguments()
       |> Vec\map($$, $root ==> TreeParser::FromPath($root))
@@ -142,7 +104,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     $this->getStdout()->write("Generating documentation...\n");
     foreach ($documentables as $documentable) {
       $content = $md_builder->getDocumentation($documentable);
-      $path = $this->getPathForDocumentable($paths, $documentable);
+      $path = get_path_for_documentable($paths, $documentable);
       \file_put_contents($prefix.$path, $content);
       $this->verboseWrite($path."\n");
     }

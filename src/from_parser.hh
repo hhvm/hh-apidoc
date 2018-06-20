@@ -24,6 +24,8 @@ function from_parser(BaseParser $parser): vec<Documentable> {
     $parser->getInterfaces(),
     $parser->getTraits(),
     $parser->getFunctions(),
+    $parser->getTypes(),
+    $parser->getNewtypes(),
   ) |> Vec\sort_by(
     $$,
     $def ==> $def->getName(),

@@ -16,6 +16,7 @@ use type Facebook\Markdown\Inlines\{
   CodeSpan,
   Link,
 };
+use function Facebook\HHAPIDoc\get_path_for_type;
 use namespace Facebook\Markdown;
 use namespace HH\Lib\{C, Dict, Str, Vec};
 
@@ -112,7 +113,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     RenderContext $context,
     string $search,
   ): ?string {
-    $search = Str\strip_prefix($search, '?') |> Str\strip_prefix($$, "\\");
+    $search = Str\strip_prefix($search, "\\");
     $ends = vec['<', '('];
     foreach ($ends as $end) {
       $idx = Str\search($search, $end);
@@ -145,19 +146,13 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
       }
     }
 
+    $paths = $context->getPathProvider();
     $prefixes = Vec\concat(vec[''], $context->getImplicitPrefixes());
-    $index = $context->getPathProvider();
     return $prefixes
       |> Vec\map(
         $$,
-        $p ==> vec[
-          $index->getPathForFunction($p.$search),
-          $index->getPathForClass($p.$search),
-          $index->getPathForInterface($p.$search),
-          $index->getPathForTrait($p.$search),
-        ],
+        $p ==> get_path_for_type($paths, $p.$search),
       )
-      |> Vec\flatten($$)
       |> Vec\filter_nulls($$)
       |> C\first($$);
   }

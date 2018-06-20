@@ -88,4 +88,18 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     }
     return $this->paths->getPathForFunction($function);
   }
+
+  public function getPathForOpaqueTypeAlias(string $name): ?string {
+    if (!C\contains_key($this->index['newtypes'], $name)) {
+      return null;
+    }
+    return $this->paths->getPathForOpaqueTypeAlias($name);
+  }
+
+  public function getPathForTransparentTypeAlias(string $name): ?string {
+    if (!C\contains_key($this->index['types'], $name)) {
+      return null;
+    }
+    return $this->paths->getPathForTransparentTypeAlias($name);
+  }
 }

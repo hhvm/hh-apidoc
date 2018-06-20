@@ -79,6 +79,16 @@ class IndexDocumentBuilder {
         Keyset\keys($index['traits']),
         $name ==> $paths->getPathForTrait($name),
       ),
+      $this->renderPart(
+        'Transparent Type Aliases',
+        $index['types'],
+        $name ==> $paths->getPathForTransparentTypeAlias($name),
+      ),
+      $this->renderPart(
+        'Opaque Type Aliases',
+        $index['newtypes'],
+        $name ==> $paths->getPathForOpaqueTypeAlias($name),
+      ),
     ]
       |> Vec\filter_nulls($$)
       |> Str\join($$, "\n\n")

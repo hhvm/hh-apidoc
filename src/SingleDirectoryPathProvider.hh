@@ -70,4 +70,12 @@ final class SingleDirectoryPathProvider implements IPathProvider<string> {
   public function getPathForFunction(string $function): string {
     return 'function.'.$this->escape($function).$this->extension;
   }
+
+  public function getPathForTransparentTypeAlias(string $name): string {
+    return 'type.'.$this->escape($name).$this->extension;
+  }
+
+  public function getPathForOpaqueTypeAlias(string $name): string {
+    return 'newtype.'.$this->escape($name).$this->extension;
+  }
 }
