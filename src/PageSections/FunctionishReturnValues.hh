@@ -26,13 +26,17 @@ final class FunctionishReturnValues extends PageSection {
 
     $values = $this->docBlock?->getReturnInfo() ?? vec[];
     if (C\is_empty($values)) {
-      return null;
+      $ret_info = $f->getReturnType();
+      if ($ret_info === null) {
+        return null;
+      }
+      $values = vec[shape('types' => vec[], 'text' => null)];
     }
 
     return $values
       |> Vec\map($$, $v ==> self::getReturnValueInformation($f, $v))
       |> Str\join($$, "\n")
-      |> "## Return Values\n\n".$$;
+      |> "## Returns\n\n".$$;
   }
 
   private static function getReturnValueInformation(
@@ -44,12 +48,15 @@ final class FunctionishReturnValues extends PageSection {
     $types =
       Vec\filter($docs['types'], $type ==> $type !== '\-' && $type !== '-');
     if ($types) {
-      $ret .= '`'.Str\join($types, '|').'` - ';
+      $ret .= '`'.Str\join($types, '|').'`';
     } else if ($type = $f->getReturnType()) {
       $ret .=
-        '`'._Private\stringify_typehint($f->getNamespaceName(), $type).'` - ';
+        '`'._Private\stringify_typehint($f->getNamespaceName(), $type).'`';
     }
-    $ret .= $docs['text'];
+    $text = $docs['text'];
+    if ($text !== null) {
+      $ret .= ' - '.$text;
+    }
     return $ret;
   }
 }
