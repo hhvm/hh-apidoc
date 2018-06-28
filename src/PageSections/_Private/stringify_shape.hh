@@ -20,13 +20,7 @@ function stringify_shape(
 ): string {
   $ret = "shape(\n";
   foreach ($fields as $field) {
-    $ret .= '  ';
-    $name = $field->getName();
-    if ($name->hasStaticValue()) {
-      $ret .= \var_export($name->getStaticValue(), true);
-    } else {
-      $ret .= ast_without_trivia($name->getAST())->getCode();
-    }
+    $ret .= '  '.stringify_expression($field->getName());
     $ret .= ' => ';
 
     $value = stringify_typehint($ns, $field->getValueType());

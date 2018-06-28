@@ -43,6 +43,7 @@ class DocumentationBuilder {
       PageSections\Description::class,
       PageSections\InterfaceSynopsis::class,
       PageSections\TypeDeclaration::class,
+      PageSections\ShapeFields::class,
       PageSections\FunctionishParameters::class,
       PageSections\FunctionishReturnValues::class,
     ];
