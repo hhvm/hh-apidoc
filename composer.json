@@ -1,11 +1,11 @@
 {
-  "name": "hhvm/hh-apidoc",
+  "name": "facebook/hh-apidoc",
   "license": "MIT",
   "require": {
     "hhvm/hsl": "^1.4|^3.26.0",
     "facebook/fbmarkdown": "^1.0",
     "facebook/hh-clilib": "^1.0.0",
-    "facebook/definition-finder": "^1.7",
+    "facebook/definition-finder": "^2.0.0",
     "hhvm/hhast": "^3.26.0"
   }
 }

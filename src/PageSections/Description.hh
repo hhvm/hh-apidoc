@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
+use type Facebook\DefinitionFinder\ScannedFunctionish;
 
 /** Detailed text (if any) describing the current definition. */
 final class Description extends PageSection {

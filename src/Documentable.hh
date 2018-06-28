@@ -11,8 +11,8 @@
 namespace Facebook\HHAPIDoc;
 
 use type Facebook\DefinitionFinder\{
-  ScannedBase,
-  ScannedClass,
+  ScannedDefinition,
+  ScannedClassish,
 };
 
 /** An API that can be documented.
@@ -21,13 +21,13 @@ use type Facebook\DefinitionFinder\{
  */
 type Documentable = shape(
   /** The item being documented */
-  'definition' => ScannedBase,
+  'definition' => ScannedDefinition,
   /** The enclosing definition for the current item.
    *
    * This will be `null` for top-level definitions like classes and functions,
    * but for methods, this will be the containing class, interface, or trait.
    */
-  'parent' => ?ScannedClass,
+  'parent' => ?ScannedClassish,
   /** The files that this definition was inferred from */
   'sources' => vec<string>,
 );

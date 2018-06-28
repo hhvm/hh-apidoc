@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
-use type Facebook\DefinitionFinder\ScannedClass;
+use type Facebook\DefinitionFinder\ScannedClassish;
 use type Facebook\Markdown\Blocks\CodeBlock;
 use type Facebook\HHAPIDoc\{Documentable, OutputFormat};
 use namespace Facebook\Markdown;

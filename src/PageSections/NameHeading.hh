@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
+use type Facebook\DefinitionFinder\ScannedFunctionish;
 use namespace HH\Lib\Str;
 
 /** Render a heading with the name of the current item */
@@ -24,7 +24,7 @@ final class NameHeading extends PageSection {
     $def = $this->definition;
     $md .= $def->getName();
 
-    if ($def instanceof ScannedFunctionAbstract) {
+    if ($def instanceof ScannedFunctionish) {
       $md .= '()';
     }
 

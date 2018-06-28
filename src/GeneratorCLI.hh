@@ -11,7 +11,7 @@
 namespace Facebook\HHAPIDoc;
 
 use type Facebook\DefinitionFinder\{
-  ScannedBasicClass,
+  ScannedClass,
   ScannedFunction,
   ScannedInterface,
   ScannedMethod,
@@ -65,7 +65,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
 
   private function parse(): vec<Documentable> {
     return $this->getArguments()
-      |> Vec\map($$, $root ==> TreeParser::FromPath($root))
+      |> Vec\map($$, $root ==> \HH\Asio\join(TreeParser::fromPathAsync($root)))
       |> Vec\map($$, $parser ==> Documentables\from_parser($parser))
       |> Vec\flatten($$);
   }

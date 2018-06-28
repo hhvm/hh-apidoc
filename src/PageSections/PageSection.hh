@@ -16,8 +16,8 @@ use type Facebook\HHAPIDoc\{
   DocumentationBuilderContext,
 };
 use type Facebook\DefinitionFinder\{
-  ScannedBase,
-  ScannedClass,
+  ScannedDefinition,
+  ScannedClassish,
 };
 
 /** Base class for all page sections.
@@ -30,14 +30,14 @@ use type Facebook\DefinitionFinder\{
 <<__ConsistentConstruct>>
 abstract class PageSection {
   /** The definition currently being documented */
-  protected ScannedBase $definition;
+  protected ScannedDefinition $definition;
   /** The parent definition of the current definition.
    *
    * This will be `null` for top-level definitions such as classes and
    * functions, however for definitions such as methods, it will be set to the
    * containing class, interface, or trait.
    */
-  protected ?ScannedClass $parent;
+  protected ?ScannedClassish $parent;
 
   /** @selfdocumenting */
   public function __construct(

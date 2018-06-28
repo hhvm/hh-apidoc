@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
-use type Facebook\DefinitionFinder\ScannedClass;
+use type Facebook\DefinitionFinder\ScannedClassish;
 use type Facebook\HHAPIDoc\Documentable;
 use type Facebook\Markdown\Inlines\{
   CodeSpan,
@@ -131,7 +131,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     }
 
     $def = $context->getDocumentable()['definition'];
-    if ($def instanceof ScannedClass) {
+    if ($def instanceof ScannedClassish) {
       $path = self::getPathForMethod($context, $def->getName(), $search);
       if ($path !== null) {
         return $path;

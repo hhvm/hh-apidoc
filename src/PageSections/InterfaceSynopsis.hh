@@ -12,8 +12,8 @@ namespace Facebook\HHAPIDoc\PageSections;
 
 use type Facebook\HHAPIDoc\DocBlock\DocBlock;
 use type Facebook\DefinitionFinder\{
-  ScannedBasicClass,
   ScannedClass,
+  ScannedClassish,
   ScannedInterface,
   ScannedMethod,
   ScannedTrait,
@@ -25,7 +25,7 @@ final class InterfaceSynopsis extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $c = $this->definition;
-    if (!$c instanceof ScannedClass) {
+    if (!$c instanceof ScannedClassish) {
       return null;
     }
 
@@ -55,7 +55,7 @@ final class InterfaceSynopsis extends PageSection {
 
   private function getMethodList(
     string $header,
-    ScannedClass $c,
+    ScannedClassish $c,
     vec<ScannedMethod> $methods,
   ): ?string {
     if (C\is_empty($methods)) {
@@ -69,7 +69,7 @@ final class InterfaceSynopsis extends PageSection {
   }
 
   private function getMethodListItem(
-    ScannedClass $c,
+    ScannedClassish $c,
     ScannedMethod $m,
   ): string {
     $ns = $c->getNamespaceName();
@@ -101,11 +101,11 @@ final class InterfaceSynopsis extends PageSection {
   }
 
   private function getLinkPathForMethod(
-    ScannedClass $c,
+    ScannedClassish $c,
     ScannedMethod $m,
   ): ?string {
     $pp = $this->context->getPathProvider();
-    if ($c instanceof ScannedBasicClass) {
+    if ($c instanceof ScannedClass) {
       return $pp->getPathForClassMethod($c->getName(), $m->getName());
     }
     if ($c instanceof ScannedInterface) {
@@ -117,12 +117,12 @@ final class InterfaceSynopsis extends PageSection {
     invariant_violation("Don't know how to handle type %s", \get_class($c));
   }
 
-  private function getInheritanceInformation(ScannedClass $c): string {
+  private function getInheritanceInformation(ScannedClassish $c): string {
     $ret = '';
 
     $ns = $c->getNamespaceName();
     if ($ns !== '') {
-      $ret .= 'namespace '.$ns."; \n\n";
+      $ret .= 'namespace '.$ns.";\n\n";
     }
 
     if ($c->isAbstract()) {
@@ -132,7 +132,7 @@ final class InterfaceSynopsis extends PageSection {
       $ret .= 'final ';
     }
 
-    if ($c instanceof ScannedBasicClass) {
+    if ($c instanceof ScannedClass) {
       $ret .= 'class ';
     } else if ($c instanceof ScannedInterface) {
       $ret .= 'interface ';

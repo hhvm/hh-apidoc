@@ -11,7 +11,7 @@
 namespace Facebook\HHAPIDoc;
 
 use type Facebook\DefinitionFinder\{
-  ScannedBasicClass,
+  ScannedClass,
   ScannedFunction,
   ScannedInterface,
   ScannedMethod,
@@ -51,7 +51,7 @@ function create_index(
       $index['newtypes'][] = $name;
       continue;
     }
-    if ($def instanceof ScannedBasicClass) {
+    if ($def instanceof ScannedClass) {
       if (!C\contains_key($index['classes'], $name)) {
         $index['classes'][$def->getName()] = keyset[];
       }
@@ -79,7 +79,7 @@ function create_index(
     $p = $what['parent'];
     invariant($p !== null, 'got a method with null parent');
     $pn = $p->getName();
-    if ($p instanceof ScannedBasicClass) {
+    if ($p instanceof ScannedClass) {
       if (!C\contains_key($index['classes'], $pn)) {
         $index['classes'][$pn] = keyset[];
       }

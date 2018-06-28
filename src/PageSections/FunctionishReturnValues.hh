@@ -11,7 +11,7 @@
 namespace Facebook\HHAPIDoc\PageSections;
 
 use namespace Facebook\HHAPIDoc\DocBlock;
-use type Facebook\DefinitionFinder\ScannedFunctionAbstract;
+use type Facebook\DefinitionFinder\ScannedFunctionish;
 
 use namespace HH\Lib\{C, Vec, Str};
 
@@ -20,7 +20,7 @@ final class FunctionishReturnValues extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
-    if (!$f instanceof ScannedFunctionAbstract) {
+    if (!$f instanceof ScannedFunctionish) {
       return null;
     }
 
@@ -40,7 +40,7 @@ final class FunctionishReturnValues extends PageSection {
   }
 
   private static function getReturnValueInformation(
-    ScannedFunctionAbstract $f,
+    ScannedFunctionish $f,
     DocBlock\ReturnInfo $docs,
   ): string {
     $ret = '- ';

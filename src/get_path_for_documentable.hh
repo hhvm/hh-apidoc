@@ -11,7 +11,7 @@
 namespace Facebook\HHAPIDoc;
 
 use type Facebook\DefinitionFinder\{
-  ScannedBasicClass,
+  ScannedClass,
   ScannedFunction,
   ScannedInterface,
   ScannedMethod,
@@ -25,7 +25,7 @@ function get_path_for_documentable(
   Documentable $what,
 ): string {
   $def = $what['definition'];
-  if ($def instanceof ScannedBasicClass) {
+  if ($def instanceof ScannedClass) {
     return $provider->getPathForClass($def->getName());
   }
   if ($def instanceof ScannedInterface) {
@@ -45,7 +45,7 @@ function get_path_for_documentable(
   }
   if ($def instanceof ScannedMethod) {
     $p = $what['parent'];
-    if ($p instanceof ScannedBasicClass) {
+    if ($p instanceof ScannedClass) {
       return $provider->getPathForClassMethod($p->getName(), $def->getName());
     }
     if ($p instanceof ScannedInterface) {

@@ -4,31 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3934b976e3bf6e3a673b4b503e01e575",
+    "content-hash": "d31ea1c17979fa84a59dd3c124a51027",
     "packages": [
         {
             "name": "facebook/definition-finder",
-            "version": "v1.7.7",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/definition-finder.git",
-                "reference": "7bd8b3b926814b7530565298a1517dc974bfb1db"
+                "reference": "56e423889c51d315970305d44f70f0a7b9947dc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/7bd8b3b926814b7530565298a1517dc974bfb1db",
-                "reference": "7bd8b3b926814b7530565298a1517dc974bfb1db",
+                "url": "https://api.github.com/repos/hhvm/definition-finder/zipball/56e423889c51d315970305d44f70f0a7b9947dc4",
+                "reference": "56e423889c51d315970305d44f70f0a7b9947dc4",
                 "shasum": ""
             },
             "require": {
-                "hhvm": "~3.23",
+                "hhvm": "^3.26.0",
+                "hhvm/hhast": "3.27.1",
                 "hhvm/hhvm-autoload": "^1.6",
-                "hhvm/hsl": "^1.2|^3.26",
+                "hhvm/hsl": "^3.26.0",
                 "hhvm/type-assert": "^3.2"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "~5.1",
-                "facebook/fbexpect": "^0.4.0|^1.0",
+                "facebook/fbexpect": "^1.0.0",
                 "hhvm/systemlib-extractor": "~1.0",
                 "phpunit/phpunit": "~5.1"
             },
@@ -53,7 +54,7 @@
                 "hack",
                 "hhvm"
             ],
-            "time": "2018-06-12T17:27:41+00:00"
+            "time": "2018-06-28T19:37:43+00:00"
         },
         {
             "name": "facebook/fbmarkdown",
@@ -96,16 +97,16 @@
         },
         {
             "name": "facebook/hh-clilib",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hh-clilib.git",
-                "reference": "b8ac1045c4333bca3444a454d7f0297f82c2af9f"
+                "reference": "2772c82a8f5fc715d5a2fbe801563f36fdda9943"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/b8ac1045c4333bca3444a454d7f0297f82c2af9f",
-                "reference": "b8ac1045c4333bca3444a454d7f0297f82c2af9f",
+                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/2772c82a8f5fc715d5a2fbe801563f36fdda9943",
+                "reference": "2772c82a8f5fc715d5a2fbe801563f36fdda9943",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +124,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2018-06-15T23:05:53+00:00"
+            "time": "2018-06-20T03:25:12+00:00"
         },
         {
             "name": "fredemmott/hack-error-suppressor",
@@ -164,26 +165,27 @@
         },
         {
             "name": "hhvm/hhast",
-            "version": "v3.27.0",
+            "version": "v3.27.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hhast.git",
-                "reference": "2837bd25397f829ee92e1830310344af9ff7f174"
+                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hhast/zipball/2837bd25397f829ee92e1830310344af9ff7f174",
-                "reference": "2837bd25397f829ee92e1830310344af9ff7f174",
+                "url": "https://api.github.com/repos/hhvm/hhast/zipball/8cd58881ccecaf81a0c330dd204f4e0089ef9104",
+                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104",
                 "shasum": ""
             },
             "require": {
+                "facebook/hh-clilib": "^1.1.1",
                 "hhvm": "^3.26.0",
                 "hhvm/hsl": "^1.0.0|^3.26.0",
                 "hhvm/type-assert": "^3.1"
             },
             "require-dev": {
                 "91carriage/phpunit-hhi": "^5.7",
-                "facebook/fbexpect": "^0.4.0|^1.0.0",
+                "facebook/fbexpect": "^1.1.0",
                 "facebook/hack-codegen": "~3.0.3",
                 "hhvm/hhvm-autoload": "^1.5",
                 "phpunit/phpunit": "^5.7"
@@ -197,7 +199,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2018-06-11T18:03:07+00:00"
+            "time": "2018-06-28T15:01:11+00:00"
         },
         {
             "name": "hhvm/hhvm-autoload",

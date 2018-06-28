@@ -12,7 +12,7 @@ namespace Facebook\HHAPIDoc\PageSections;
 
 use namespace Facebook\HHAPIDoc\DocBlock;
 use type Facebook\DefinitionFinder\{
-  ScannedFunctionAbstract,
+  ScannedFunctionish,
   ScannedParameter,
 };
 use namespace HH\Lib\{C, Str, Vec};
@@ -22,7 +22,7 @@ final class FunctionishParameters extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $f = $this->definition;
-    if (!$f instanceof ScannedFunctionAbstract) {
+    if (!$f instanceof ScannedFunctionish) {
       return null;
     }
 

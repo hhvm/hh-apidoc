@@ -42,6 +42,7 @@ class DocumentationBuilder {
       PageSections\FunctionishSignature::class,
       PageSections\Description::class,
       PageSections\InterfaceSynopsis::class,
+      PageSections\TypeDeclaration::class,
       PageSections\FunctionishParameters::class,
       PageSections\FunctionishReturnValues::class,
     ];
