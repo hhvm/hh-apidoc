@@ -2,6 +2,10 @@
 
 An API documentation generator for Hack files. The generator works on files that start with `<?hh`.
 
+## Project status
+
+This is an early preview; work is needed on output format (prettiness), usability, and functionality. See [the issues](https://github.com/hhvm/hh-apidoc/issues) to get started. We [welcome contributions](CONTRIBUTING.md).
+
 ## Installing hh-apidoc
 
 1. [Install hhvm](https://docs.hhvm.com/hhvm/installation/introduction)
