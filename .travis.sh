@@ -2,9 +2,7 @@
 set -ex
 hhvm --version
 
-composer install --ignore-platform-reqs
-
 hh_client
 
-hhvm vendor/bin/phpunit
-hhvm bin/hhast-lint
+hhvm bin/hh-apidoc -o $(mktemp -d) src/
+hhvm vendor/bin/hhast-lint
