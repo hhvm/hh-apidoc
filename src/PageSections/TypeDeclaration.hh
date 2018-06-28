@@ -43,7 +43,7 @@ final class TypeDeclaration extends PageSection {
       $code .= 'newtype ';
     }
 
-    $code .= $t->getName();
+    $code .= _Private\ns_normalize_type($ns, $t->getName());
 
     if ($t instanceof ScannedType) {
       $code .= ' = '.

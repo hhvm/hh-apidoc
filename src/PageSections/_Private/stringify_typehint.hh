@@ -18,6 +18,10 @@ function stringify_typehint(
   ScannedTypehint $type,
 ): string {
   $s = $type->isNullable() ? '?' : '';
+  if ($type->isShape()) {
+    return $s.stringify_shape($ns, $type->getShapeFields());
+  }
+  invariant($type->getTypeName() !== 'shape', 'got a shape thats not a shape');
   $s .= ns_normalize_type($ns, $type->getTypeName());
 
   $generics = $type->getGenericTypes();
