@@ -4,7 +4,10 @@ An API documentation generator for Hack files. The generator works on files that
 
 ## Project status
 
-This is an early preview; work is needed on output format (prettiness), usability, and functionality. See [the issues](https://github.com/hhvm/hh-apidoc/issues) to get started. We [welcome contributions](CONTRIBUTING.md).
+This is derived from docs.hhvm.com's documentation generator, and has been in use there for several months.
+
+As a standalone project, it is immature, and an early preview; work is needed on output format (prettiness), usability, and functionality.
+ee [the issues](https://github.com/hhvm/hh-apidoc/issues) to get started. We [welcome contributions](CONTRIBUTING.md).
 
 ## Installing hh-apidoc
 
