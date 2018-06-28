@@ -14,12 +14,10 @@ An API documentation generator for Hack files. The generator works on files that
 
 ## Testing hh-apidoc
 
-The [Hack Standard Library](https://github.com/hhvm/hsl) is a good place to test the generator.
+Running `hh-apidoc` against itself is a good way to test the generator:
 
-1. Clone the [HSL](https://github.com/hhvm/hsl) repo.
-1. `cd path/to/cloned/hsl`
-1. `hhvm bin/hh-apidoc -o /tmp/hsl-docs ./src` The `-o` is where to output the resulting files (it is important to note that the path given to `-o` must currently be an existing path). `.` means use the current directory as the source.
-1. `cd /tmp/hsl-docs`
+1. `hhvm bin/hh-apidoc -o /tmp/docs ./src` The `-o` is where to output the resulting files (it is important to note that the path given to `-o` must currently be an existing path). `.` means use the current directory as the source.
+1. `cd /tmp/docs`
 1. See generated `.html` files. You can open `index.html` in your favorite browser to see the generated documentation.
 
 ## License
