@@ -16,7 +16,7 @@ type ParameterInfo = shape(
   'name' => string,
   /** The valid types for the parameter */
   'types' => vec<string>,
-  /** The human-readable text for the parameter.
+  /** The human-readable documentation for the parameter.
    *
    * Likely to be GitHub-Flavored-Markdown.
    */
