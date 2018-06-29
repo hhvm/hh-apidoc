@@ -4,5 +4,7 @@ hhvm --version
 
 hh_client
 
-hhvm bin/hh-apidoc -o $(mktemp -d) src/
+# Make sure it 'works'
+hhvm bin/hh-apidoc -o docs src/
+# Make sure it lints
 hhvm vendor/bin/hhast-lint

@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>Facebook\HHAPIDoc\DocBlock\DocBlock</title>
+<style>
+/* Keywords */
+
+.hs-FunctionToken,
+.hs-NamespaceToken {
+  color: #c678dd;
+}
+
+/* Types */
+
+.hs-SimpleTypeSpecifier .hs-StringToken {
+  color: #e5c07b;
+}
+
+.hs-ClassDeclaration .hs-NameToken {
+  color: #e5c07b;
+}
+
+/* Functions */
+
+.hs-FunctionDeclaration .hs-NameToken {
+  color: #61afef;
+}
+
+/* Variables */
+
+.hs-VariableToken {
+  color: #e06c75;
+}
+</style>
+</head>
+<body>
+<h1>Facebook\HHAPIDoc\DocBlock\DocBlock</h1>
+<p>Class to represent and parse a docblock (a</p>
+<p>k.a. doc comment).</p>
+<p>These comments always are delimeted by <code>/**</code> and <code>*\/</code>.</p>
+<p>DocBlocks are treated as GitHub Flavored Markdown, and standard
+JavaDoc style tags are supported, such as <code>@param</code>, <code>@see</code>, and
+<code>@return</code>.</p>
+<h2>Interface Synopsis</h2>
+<pre><code class="language-Hack"><span class="hs-Script"><span class="hs-MarkupSection"></span><span class="hs-NamespaceDeclaration"><span class="hs-NamespaceToken">namespace </span><span class="hs-QualifiedName"><span class="hs-ListItem"><span class="hs-NameToken">Facebook</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">HHAPIDoc</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">DocBlock</span></span></span><span class="hs-NamespaceEmptyBody"><span class="hs-SemicolonToken">;
+</span></span></span><span class="hs-ClassishDeclaration"><span class="hs-FinalToken">
+final </span><span class="hs-ClassToken">class </span><span class="hs-NameToken">DocBlock </span><span class="hs-ClassishBody"><span class="hs-LeftBraceToken">{</span><span class="hs-ErrorSyntax"><span class="hs-DotDotDotToken">...</span></span><span class="hs-RightBraceToken">}</span></span></span><span class="hs-EndOfFile"><span class="hs-EndOfFileToken"></span></span></span></code></pre>
+
+<h3>Public Methods</h3>
+<ul>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.nullable.html"><code>::nullable(?string $comment): ?\this</code></a><br />
+Create a new instance if a comment is provided</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.__construct.html"><code>-&gt;__construct(string $rawDocBlock)</code></a><br />
+Create and parse a documentation block</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.getDescription.html"><code>-&gt;getDescription(): ?string</code></a><br />
+Get the description of the item being documented</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.getParameterInfo.html"><code>-&gt;getParameterInfo(): dict&lt;string, ParameterInfo&gt;</code></a><br />
+Return information on function parameters from <code>@param</code> tags</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.getReturnInfo.html"><code>-&gt;getReturnInfo(): vec&lt;ReturnInfo&gt;</code></a><br />
+Get the return information for a function</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.getSummary.html"><code>-&gt;getSummary(): ?string</code></a><br />
+Get the summary of the item being documented</li>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.getTagsByName.html"><code>-&gt;getTagsByName(string $name): vec&lt;string&gt;</code></a><br />
+Return the content of all tags with the specified name</li>
+</ul>
+<h3>Protected Methods</h3>
+<ul>
+<li><a href="class.Facebook.HHAPIDoc.DocBlock.DocBlock.typeToTypes.html"><code>::typeToTypes(?string $type): vec&lt;string&gt;</code></a><br />
+Convert a string type specifiction to a list of types</li>
+</ul>
+
+</body>
+</html>
