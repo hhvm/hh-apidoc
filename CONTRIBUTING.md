@@ -64,5 +64,5 @@ https://hhvm.github.io/hh-apidoc/
 enforce most of the rules.
 
 ## License
-By contributing HH-CLILib, you agree that your contributions will be licensed
+By contributing HH-APIDoc, you agree that your contributions will be licensed
 under its MIT license.
