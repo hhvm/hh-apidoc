@@ -2,6 +2,8 @@
 set -ex
 hhvm --version
 
+composer install --ignore-platform-reqs
+
 hh_client
 
 # Make sure it 'works'
