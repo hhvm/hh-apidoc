@@ -51,10 +51,17 @@ outlined on that page and do not file a public issue.
   files used to generate the definition, and an optional parent definition; for
   example, methods have parents (the containing class), functions don't.
 
+## API Reference
+
+https://hhvm.github.io/hh-apidoc/
+
 ## Coding Style
 * 2 spaces for indentation rather than tabs
 * 80 character line length
-* Please be consistent with the coding style
+* Please be consistent with the existing code style
+
+`hackfmt` or in-IDE code formatting (in 3.27+) and `hhast-lint` will
+enforce most of the rules.
 
 ## License
 By contributing HH-CLILib, you agree that your contributions will be licensed

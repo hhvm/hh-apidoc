@@ -2,6 +2,11 @@
 
 An API documentation generator for Hack files. The generator works on files that start with `<?hh`.
 
+## Example
+
+HHAPIDoc generates its own
+[API reference documentation](https://hhvm.github.io/hh-apidoc/).
+
 ## Project status
 
 This is derived from docs.hhvm.com's documentation generator, and has been in use there for several months.
