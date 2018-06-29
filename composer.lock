@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d31ea1c17979fa84a59dd3c124a51027",
+    "content-hash": "3ba50e1e54995ca2c7bb7d917d0ffb66",
     "packages": [
         {
             "name": "facebook/definition-finder",
@@ -325,6 +325,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "hhvm": "^3.27.0"
+    },
     "platform-dev": []
 }

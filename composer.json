@@ -2,6 +2,7 @@
   "name": "facebook/hh-apidoc",
   "license": "MIT",
   "require": {
+    "hhvm": "^3.27.0",
     "hhvm/hsl": "^1.4|^3.26.0",
     "facebook/fbmarkdown": "^1.0",
     "facebook/hh-clilib": "^1.0.0",
