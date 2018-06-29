@@ -22,7 +22,7 @@ function stringify_parameter(
 ): string {
   $s = '';
 
-  $types = $docs['types'] ?? null;
+  $types = $docs['types'] ?? vec[];
   if ($types) {
     $s .= Str\join($types, '|').' ';
   } else if ($th = $parameter->getTypehint()) {
