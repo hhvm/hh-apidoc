@@ -32,6 +32,25 @@ Facebook has a [bounty program](https://www.facebook.com/whitehat/) for the safe
 disclosure of security bugs. In those cases, please go through the process
 outlined on that page and do not file a public issue.
 
+## Core Components
+
+- `Facebook\HHAPIDoc\DocBlock`: A Docblock parser, exposing summary,
+  description, tags and so on.
+- `Facebook\HHAPIDoc\PageSections`: Parts of documentation pages. These take a
+  `Documentable`, and produce Markdown (or nothing, if the section doesn't
+  handle that type. For example, the `ShapeFields` section produces nothing
+  for most pages, but produces detailed information for type aliases that
+  resolve to shape.
+- `Facebook\HHAPIDoc/MarkdownExt`: Extensions to
+  [fbmarkdown](https://github.com/hhvm/fbmarkdown); for example, `myfunc()` or
+  `MyType` in backticks gets automatically linked to the relevant page, and
+  syntax highlighting.
+- `Facebook\HHAPIDoc\Documentable`: a thing that we might want to generate
+  a page for. This includes a `ScannedDefinition` from
+  [definition-finder](https://github.com/hhvm/definition-finder), a list of the
+  files used to generate the definition, and an optional parent definition; for
+  example, methods have parents (the containing class), functions don't.
+
 ## Coding Style
 * 2 spaces for indentation rather than tabs
 * 80 character line length
