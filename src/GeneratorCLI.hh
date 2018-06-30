@@ -33,6 +33,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private OutputFormat $format = OutputFormat::HTML;
   private ?string $outputRoot = null;
   private int $verbosity = 0;
+  private bool $syntaxHighlightingOn = true;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
@@ -60,6 +61,14 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         '--output',
         '-o',
       ),
+      CLIOptions\flag(
+        () ==> {
+          $this->syntaxHighlightingOn = false;
+        },
+        "Generate documentation without syntax highlighting",
+        '--no-highlighting',
+        '-n',
+      ),
     ];
   }
 
@@ -86,7 +95,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     $index = create_index($documentables);
 
     $paths = new SingleDirectoryPathProvider($extension);
-    $context = new DocumentationBuilderContext($this->format, $index, $paths);
+    $context = new DocumentationBuilderContext($this->format, $index, $paths, $this->syntaxHighlightingOn);
     $md_builder = new DocumentationBuilder($context);
 
     if ($this->outputRoot === null) {

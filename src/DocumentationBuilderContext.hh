@@ -24,6 +24,7 @@ class DocumentationBuilderContext {
     private OutputFormat $format,
     private Index $index,
     private IPathProvider<?string> $pathProvider,
+    private bool $syntaxHighlightingOn,
   ) {
   }
 
@@ -41,4 +42,10 @@ class DocumentationBuilderContext {
   public function getPathProvider(): IPathProvider<?string> {
     return $this->pathProvider;
   }
+
+  /** @selfdocumenting */
+  public function IsSyntaxHighlightingOn(): bool {
+    return $this->syntaxHighlightingOn;
+  }
+
 }
