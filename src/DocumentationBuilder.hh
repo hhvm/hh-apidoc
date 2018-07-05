@@ -128,8 +128,10 @@ class DocumentationBuilder {
       )
       ->appendFilters(
         new MarkdownExt\AutoLinkifyFilter(),
-        new MarkdownExt\SyntaxHighlightingFilter(),
       );
+    if ($ctx->IsSyntaxHighlightingOn()) {
+      $render_ctx = $render_ctx->appendFilters(new MarkdownExt\SyntaxHighlightingFilter());
+    }
     switch ($this->getContext()->getOutputFormat()) {
       case OutputFormat::MARKDOWN:
         $renderer = new Markdown\MarkdownRenderer($render_ctx);
