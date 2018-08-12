@@ -19,7 +19,9 @@ final class UndocumentedDefinitionException extends \Exception {
   public function __construct(
     private string $fieldname,
     private string $fileName,
-  ) {}
+  ) {
+    parent::__construct();
+  }
 
   <<__Override>>
   public function getMessage(): string {
