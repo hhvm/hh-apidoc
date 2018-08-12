@@ -34,6 +34,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private ?string $outputRoot = null;
   private int $verbosity = 0;
   private bool $syntaxHighlightingOn = true;
+  private bool $raiseErrorOnUndocumentedDefinitions = false;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
@@ -69,6 +70,14 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         '--no-highlighting',
         '-n',
       ),
+      CLIOptions\flag(
+        () ==> {
+          $this->raiseErrorOnUndocumentedDefinitions = true;
+        },
+        "Raise error on undocumented definitions",
+        '--no-undoc-definitions',
+        '-u',
+      ),
     ];
   }
 
@@ -95,7 +104,13 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     $index = create_index($documentables);
 
     $paths = new SingleDirectoryPathProvider($extension);
-    $context = new DocumentationBuilderContext($this->format, $index, $paths, $this->syntaxHighlightingOn);
+    $context = new DocumentationBuilderContext(
+      $this->format,
+      $index,
+      $paths,
+      $this->syntaxHighlightingOn,
+      $this->raiseErrorOnUndocumentedDefinitions,
+    );
     $md_builder = new DocumentationBuilder($context);
 
     if ($this->outputRoot === null) {
@@ -111,12 +126,30 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     }
 
     $this->getStdout()->write("Generating documentation...\n");
-    foreach ($documentables as $documentable) {
-      $content = $md_builder->getDocumentation($documentable);
-      $path = get_path_for_documentable($paths, $documentable);
-      \file_put_contents($prefix.$path, $content);
-      $this->verboseWrite($path."\n");
-    }
+
+    $documentations = Map {};
+    Vec\map(
+      $documentables,
+      ($documentable) ==> {
+        $path = get_path_for_documentable($paths, $documentable);
+        $this->verboseWrite($path."\n");
+        try {
+          $documentation = $md_builder->getDocumentation($documentable);
+          $documentations[$path] = $documentation;
+        } catch (Exceptions\UndocumentedDefinitionException $e) {
+          $this->getStderr()->write($e->getMessage());
+          \exit(1);
+        }
+      },
+    );
+
+    Vec\map_with_key(
+      $documentations,
+      ($path, $content) ==> {
+        \file_put_contents($prefix.$path, $content);
+      },
+    );
+
     $this->getStdout()->write("Creating index document...\n");
     \file_put_contents(
       $prefix.'index'.$extension,

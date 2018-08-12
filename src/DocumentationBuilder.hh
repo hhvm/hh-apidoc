@@ -105,10 +105,15 @@ class DocumentationBuilder {
   protected function getDocumentationBody(
     Documentable $documentable,
   ): string {
-    $docs = DocBlock\DocBlock::nullable(
-      $documentable['definition']->getDocComment(),
-    );
     $ctx = $this->getContext();
+    $definition = $documentable['definition'];
+    $docs = DocBlock\DocBlock::nullable($definition->getDocComment());
+    if ($docs === null && $ctx->shouldRaiseErrorOnUndocumentedDefinitions()) {
+      throw new Exceptions\UndocumentedDefinitionException(
+        $definition->getName(),
+        $definition->getFileName(),
+      );
+    }
     $md = $this->getPageSections()
       |> Vec\map($$, $s ==> (new $s($ctx, $documentable, $docs))->getMarkdown())
       |> Vec\filter_nulls($$)
@@ -118,7 +123,7 @@ class DocumentationBuilder {
     $ast = Markdown\parse($parser_ctx, $md);
 
     $render_ctx = (new MarkdownExt\RenderContext())
-      ->setOutputFormat($this->getContext()->getOutputFormat())
+      ->setOutputFormat($ctx->getOutputFormat())
       ->setDocumentable($documentable)
       ->setPathProvider(
         new IndexedPathProvider(
@@ -130,9 +135,10 @@ class DocumentationBuilder {
         new MarkdownExt\AutoLinkifyFilter(),
       );
     if ($ctx->IsSyntaxHighlightingOn()) {
-      $render_ctx = $render_ctx->appendFilters(new MarkdownExt\SyntaxHighlightingFilter());
+      $render_ctx =
+        $render_ctx->appendFilters(new MarkdownExt\SyntaxHighlightingFilter());
     }
-    switch ($this->getContext()->getOutputFormat()) {
+    switch ($ctx->getOutputFormat()) {
       case OutputFormat::MARKDOWN:
         $renderer = new Markdown\MarkdownRenderer($render_ctx);
         break;

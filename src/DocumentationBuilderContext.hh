@@ -25,6 +25,7 @@ class DocumentationBuilderContext {
     private Index $index,
     private IPathProvider<?string> $pathProvider,
     private bool $syntaxHighlightingOn,
+    private bool $raiseErrorOnUndocumentedDefinitions,
   ) {
   }
 
@@ -46,6 +47,11 @@ class DocumentationBuilderContext {
   /** @selfdocumenting */
   public function IsSyntaxHighlightingOn(): bool {
     return $this->syntaxHighlightingOn;
+  }
+
+  /** @selfdocumenting */
+  public function shouldRaiseErrorOnUndocumentedDefinitions(): bool {
+    return $this->raiseErrorOnUndocumentedDefinitions;
   }
 
 }
