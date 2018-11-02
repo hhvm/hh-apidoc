@@ -1,5 +1,6 @@
 {
   "name": "facebook/hh-apidoc",
+  "bin": [ "bin/hh-apidoc" ],
   "license": "MIT",
   "require": {
     "hhvm": "^3.27.0",
