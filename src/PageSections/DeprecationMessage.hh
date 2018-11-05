@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\C;
 
 /** Show a deprecation notice if the `Documentable` is deprecated.
  *

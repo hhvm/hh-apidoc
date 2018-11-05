@@ -10,7 +10,7 @@
 
 namespace Facebook\HHAPIDoc\DocBlock;
 
-use namespace HH\Lib\{C, Math, Str, Vec};
+use namespace HH\Lib\{Math, Str, Vec};
 
 /** Class to represent and parse a docblock (a.k.a. doc comment).
  *

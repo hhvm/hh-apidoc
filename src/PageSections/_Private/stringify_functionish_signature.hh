@@ -15,7 +15,6 @@ use type Facebook\DefinitionFinder\{
   ScannedFunctionish,
   ScannedMethod,
 };
-use namespace HH\Lib\{Str, Vec};
 
 function stringify_functionish_signature(
   StringifyFormat $format,

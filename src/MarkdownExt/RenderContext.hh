@@ -11,7 +11,6 @@
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
 use type Facebook\HHAPIDoc\{Documentable, IPathProvider, OutputFormat};
-use namespace HH\Lib\Keyset;
 
 /** Context for rendering markdown using FBMarkdown and
  * hh-apidoc's extensions.

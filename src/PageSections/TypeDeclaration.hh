@@ -10,13 +10,11 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-use type Facebook\HHAPIDoc\DocBlock\DocBlock;
 use type Facebook\DefinitionFinder\{
-  ScannedNewtype,
   ScannedType,
   ScannedTypeish,
 };
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\Str;
 
 /** Render the outline of a type alias */
 final class TypeDeclaration extends PageSection {

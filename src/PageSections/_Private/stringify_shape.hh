@@ -11,7 +11,6 @@
 namespace Facebook\HHAPIDoc\PageSections\_Private;
 
 use type Facebook\DefinitionFinder\ScannedShapeField;
-use function Facebook\DefinitionFinder\ast_without_trivia;
 use namespace HH\Lib\{C, Str, Vec};
 
 function stringify_shape(

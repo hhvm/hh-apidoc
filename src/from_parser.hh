@@ -13,7 +13,7 @@ namespace Facebook\HHAPIDoc\Documentables;
 use type Facebook\DefinitionFinder\{BaseParser, ScannedClassish};
 use type Facebook\HHAPIDoc\Documentable;
 
-use namespace HH\Lib\{Dict, Str, Vec};
+use namespace HH\Lib\Vec;
 
 /** Create `Documentable`s for all the supported defintions available
  * in the `Facebook\DefinitionFinder\BaseParser`.

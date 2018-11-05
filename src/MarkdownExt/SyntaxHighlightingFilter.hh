@@ -10,12 +10,11 @@
 
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
-use type Facebook\DefinitionFinder\ScannedClassish;
 use type Facebook\Markdown\Blocks\CodeBlock;
-use type Facebook\HHAPIDoc\{Documentable, OutputFormat};
+use type Facebook\HHAPIDoc\OutputFormat;
 use namespace Facebook\Markdown;
 use namespace Facebook\HHAST;
-use namespace HH\Lib\{C, Dict, Str, Vec};
+use namespace HH\Lib\{C, Str, Vec};
 
 /**
  * Apply syntax highlighting to Hack code blocks.

@@ -12,7 +12,7 @@ namespace Facebook\HHAPIDoc\PageSections;
 
 use type Facebook\HHAPIDoc\DocBlock\DocBlock;
 use type Facebook\DefinitionFinder\ScannedType;
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\{Str, Vec};
 
 /** Detailed information for shape fields, including per-field docbocks */
 final class ShapeFields extends PageSection {

@@ -10,17 +10,9 @@
 
 namespace Facebook\HHAPIDoc;
 
-use type Facebook\DefinitionFinder\{
-  ScannedClass,
-  ScannedFunction,
-  ScannedInterface,
-  ScannedMethod,
-  ScannedTrait,
-  TreeParser,
-};
+use type Facebook\DefinitionFinder\TreeParser;
 use type Facebook\CLILib\CLIWithRequiredArguments;
 use namespace Facebook\CLILib\CLIOptions;
-use namespace Facebook\Markdown;
 use namespace HH\Lib\{Str, Vec};
 
 /** The main `hh-apidoc` CLI */

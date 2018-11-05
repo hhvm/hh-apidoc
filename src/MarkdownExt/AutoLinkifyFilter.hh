@@ -11,14 +11,13 @@
 namespace Facebook\HHAPIDoc\MarkdownExt;
 
 use type Facebook\DefinitionFinder\ScannedClassish;
-use type Facebook\HHAPIDoc\Documentable;
 use type Facebook\Markdown\Inlines\{
   CodeSpan,
   Link,
 };
 use function Facebook\HHAPIDoc\get_path_for_type;
 use namespace Facebook\Markdown;
-use namespace HH\Lib\{C, Dict, Str, Vec};
+use namespace HH\Lib\{C, Str, Vec};
 
 /**
  * Given something like `Vec\map()`, automatically make it a link

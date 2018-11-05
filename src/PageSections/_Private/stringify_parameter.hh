@@ -13,7 +13,7 @@ namespace Facebook\HHAPIDoc\PageSections\_Private;
 use namespace Facebook\TypeAssert;
 use namespace Facebook\HHAPIDoc\DocBlock;
 use type Facebook\DefinitionFinder\ScannedParameter;
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\Str;
 
 function stringify_parameter(
   string $ns,
