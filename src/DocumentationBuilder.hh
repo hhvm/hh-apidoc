@@ -129,7 +129,7 @@ class DocumentationBuilder {
       ->appendFilters(
         new MarkdownExt\AutoLinkifyFilter(),
       );
-    if ($ctx->IsSyntaxHighlightingOn()) {
+    if ($ctx->isSyntaxHighlightingEnabled()) {
       $render_ctx = $render_ctx->appendFilters(new MarkdownExt\SyntaxHighlightingFilter());
     }
     switch ($this->getContext()->getOutputFormat()) {

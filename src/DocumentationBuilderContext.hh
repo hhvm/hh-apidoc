@@ -12,6 +12,10 @@ namespace Facebook\HHAPIDoc;
 
 /** Contextual information required to build documentation. */
 class DocumentationBuilderContext {
+  const type TConfig = shape(
+    'format' => OutputFormat,
+    'syntaxHighlighting' => bool,
+  );
   /** Create an instance.
    *
    * @param $format the desired documentation format
@@ -21,16 +25,15 @@ class DocumentationBuilderContext {
    *   that exist, or null for ones that don't.
    */
   public function __construct(
-    private OutputFormat $format,
     private Index $index,
     private IPathProvider<?string> $pathProvider,
-    private bool $syntaxHighlightingOn,
+    private this::TConfig $config,
   ) {
   }
 
   /** @selfdocumenting */
   public function getOutputFormat(): OutputFormat {
-    return $this->format;
+    return $this->config['format'];
   }
 
   /** @selfdocumenting */
@@ -44,8 +47,7 @@ class DocumentationBuilderContext {
   }
 
   /** @selfdocumenting */
-  public function IsSyntaxHighlightingOn(): bool {
-    return $this->syntaxHighlightingOn;
+  public function isSyntaxHighlightingEnabled(): bool {
+    return $this->config['syntaxHighlighting'];
   }
-
 }

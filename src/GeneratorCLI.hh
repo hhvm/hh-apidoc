@@ -87,7 +87,11 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     $index = create_index($documentables);
 
     $paths = new SingleDirectoryPathProvider($extension);
-    $context = new DocumentationBuilderContext($this->format, $index, $paths, $this->syntaxHighlightingOn);
+    $config = shape(
+      'format' => $this->format,
+      'syntaxHighlighting' => $this->syntaxHighlightingOn,
+    );
+    $context = new DocumentationBuilderContext($index, $paths, $config);
     $md_builder = new DocumentationBuilder($context);
 
     if ($this->outputRoot === null) {
