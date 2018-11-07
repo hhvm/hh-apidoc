@@ -36,7 +36,6 @@ class DocumentationBuilder {
   protected function getPageSections(
   ): keyset<classname<PageSections\PageSection>> {
     return keyset[
-      PageSections\FrontMatter::class,
       PageSections\NameHeading::class,
       PageSections\DeprecationMessage::class,
       PageSections\Summary::class,
@@ -110,6 +109,7 @@ class DocumentationBuilder {
       $documentable['definition']->getDocComment(),
     );
     $ctx = $this->getContext();
+
     $md = $this->getPageSections()
       |> Vec\map($$, $s ==> (new $s($ctx, $documentable, $docs))->getMarkdown())
       |> Vec\filter_nulls($$)
@@ -133,7 +133,7 @@ class DocumentationBuilder {
     if ($ctx->isSyntaxHighlightingEnabled()) {
       $render_ctx = $render_ctx->appendFilters(new MarkdownExt\SyntaxHighlightingFilter());
     }
-    switch ($this->getContext()->getOutputFormat()) {
+    switch ($ctx->getOutputFormat()) {
       case OutputFormat::MARKDOWN:
         $renderer = new Markdown\MarkdownRenderer($render_ctx);
         break;
@@ -141,6 +141,12 @@ class DocumentationBuilder {
         $renderer = new Markdown\HTMLRenderer($render_ctx);
         break;
     }
-    return $renderer->render($ast);
+    $out = $renderer->render($ast);
+    $fm =
+      (new PageSections\FrontMatter($ctx, $documentable, $docs))->getMarkdown();
+    if ($fm is nonnull) {
+      $out = $fm.$out;
+    }
+    return $out;
   }
 }
