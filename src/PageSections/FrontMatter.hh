@@ -45,7 +45,10 @@ final class FrontMatter extends PageSection {
       $pp = $config['permalinkPrefix'] ?? null;
       if ($pp !== null) {
         if ($path !== null) {
-          $fields['permalink'] = $pp.$path;
+          $fields['permalink'] = $pp.$path
+            |> Str\strip_suffix($$, '.md')
+            |> Str\strip_suffix($$, '.html')
+            |> $$.'/';
         }
       }
     }
