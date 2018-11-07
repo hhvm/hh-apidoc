@@ -36,6 +36,7 @@ class DocumentationBuilder {
   protected function getPageSections(
   ): keyset<classname<PageSections\PageSection>> {
     return keyset[
+      PageSections\FrontMatter::class,
       PageSections\NameHeading::class,
       PageSections\DeprecationMessage::class,
       PageSections\Summary::class,

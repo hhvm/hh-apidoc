@@ -21,9 +21,9 @@ use type Facebook\DefinitionFinder\{
 };
 
 function get_path_for_documentable(
-  IPathProvider<string> $provider,
+  IPathProvider<?string> $provider,
   Documentable $what,
-): string {
+): ?string {
   $def = $what['definition'];
   if ($def instanceof ScannedClass) {
     return $provider->getPathForClass($def->getName());

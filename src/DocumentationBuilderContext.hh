@@ -15,6 +15,7 @@ class DocumentationBuilderContext {
   const type TConfig = shape(
     'format' => OutputFormat,
     'syntaxHighlighting' => bool,
+    ?'frontMatter' => PageSections\FrontMatter::TConfig,
   );
   /** Create an instance.
    *
@@ -49,5 +50,10 @@ class DocumentationBuilderContext {
   /** @selfdocumenting */
   public function isSyntaxHighlightingEnabled(): bool {
     return $this->config['syntaxHighlighting'];
+  }
+
+  /** @selfdocumenting */
+  public function getConfiguration(): this::TConfig {
+    return $this->config;
   }
 }

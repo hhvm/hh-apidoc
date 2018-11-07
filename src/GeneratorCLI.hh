@@ -26,6 +26,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private ?string $outputRoot = null;
   private int $verbosity = 0;
   private bool $syntaxHighlightingOn = true;
+  private ?PageSections\FrontMatter::TConfig $frontMatterConfig = null;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
@@ -61,6 +62,34 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         '--no-highlighting',
         '-n',
       ),
+      CLIOptions\flag(
+        () ==> {
+          $this->frontMatterConfig ??= shape();
+        },
+        "Include front matter in the generated markdown",
+        '--with-frontmatter',
+      ),
+      CLIOptions\with_required_string(
+        $s ==> {
+          $fm = $this->frontMatterConfig ?? shape();
+          $fm['permalinkPrefix'] = $s;
+          $this->frontMatterConfig = $fm;
+        },
+        "Add permalinks to frontmatter with the specified prefix",
+        '--fm-permalink-prefix',
+      ),
+      CLIOptions\with_required_string(
+        $s ==> {
+          $fm = $this->frontMatterConfig ?? shape();
+          $fields = $fm['constantFields'] ?? dict[];
+          list($key, $value) = Str\split($s, ':');
+          $fields[$key] = $value;
+          $fm['constantFields'] = $fields;
+          $this->frontMatterConfig = $fm;
+        },
+        "Add key:value pair to frontmatter",
+        '--fm-key-value',
+      ),
     ];
   }
 
@@ -91,6 +120,10 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       'format' => $this->format,
       'syntaxHighlighting' => $this->syntaxHighlightingOn,
     );
+    $fmc = $this->frontMatterConfig;
+    if ($fmc is nonnull) {
+      $config['frontMatter'] = $fmc;
+    }
     $context = new DocumentationBuilderContext($index, $paths, $config);
     $md_builder = new DocumentationBuilder($context);
 
