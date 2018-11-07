@@ -31,14 +31,22 @@ final class FrontMatter extends PageSection {
     $def = $this->documentable['definition'];
 
     $fields['title'] = $def->getName();
-    $pp = $config['permalinkPrefix'] ?? null;
-    if ($pp !== null) {
-      $path = get_path_for_documentable(
-        $this->context->getPathProvider(),
-        $this->documentable,
-      );
-      if ($path !== null) {
-        $fields['permalink'] = $pp.$path;
+    $path = get_path_for_documentable(
+      $this->context->getPathProvider(),
+      $this->documentable,
+    );
+    if ($path is nonnull) {
+      // Docusaurus
+      $fields['id'] = \basename($path)
+        |> Str\strip_suffix($$, '.md')
+        |> Str\strip_suffix($$, '.html');
+      // Jekyll
+      $fields['docid'] = $fields['id'];
+      $pp = $config['permalinkPrefix'] ?? null;
+      if ($pp !== null) {
+        if ($path !== null) {
+          $fields['permalink'] = $pp.$path;
+        }
       }
     }
 
