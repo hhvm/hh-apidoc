@@ -1,6 +1,6 @@
 {
   "name": "facebook/hh-apidoc",
-  "bin": [ "bin/hh-apidoc" ],
+  "bin": [ "bin/hh-apidoc", "bin/hh-apidoc.hack" ],
   "license": "MIT",
   "require": {
     "hhvm": "^4.0",
