@@ -22,4 +22,5 @@ hhvm bin/hh-apidoc -o docs src
 git add docs/
 if ! git diff --quiet --cached; then
   echo "Documentation needs regenerating."
- exit 1
+  exit
+fi
