@@ -3,11 +3,14 @@
   "bin": [ "bin/hh-apidoc" ],
   "license": "MIT",
   "require": {
-    "hhvm": "^3.27.0",
-    "hhvm/hsl": "^1.4|^3.26.0",
+    "hhvm": "^4.0",
+    "hhvm/hsl": "^4.0",
     "facebook/fbmarkdown": "^1.0",
-    "facebook/hh-clilib": "^1.0.0",
+    "facebook/hh-clilib": "^2.1.0",
     "facebook/definition-finder": "^2.0.0",
-    "hhvm/hhast": "^3.26.0"
+    "hhvm/hhast": "^4.0"
+  },
+  "require-dev": {
+    "hhvm/hhvm-autoload": "^2.0"
   }
 }
