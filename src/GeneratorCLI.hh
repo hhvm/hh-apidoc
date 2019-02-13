@@ -111,7 +111,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         break;
     }
 
-    $this->getStdout()->write("Parsing...\n");
+    await $this->getStdout()->writeAsync("Parsing...\n");
     $documentables = $this->parse();
     $index = create_index($documentables);
 
@@ -139,20 +139,20 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       \mkdir($prefix);
     }
 
-    $this->getStdout()->write("Generating documentation...\n");
+    await $this->getStdout()->writeAsync("Generating documentation...\n");
     foreach ($documentables as $documentable) {
       $content = $md_builder->getDocumentation($documentable);
       $path = get_path_for_documentable($paths, $documentable);
       \file_put_contents($prefix.$path, $content);
       $this->verboseWrite($path."\n");
     }
-    $this->getStdout()->write("Creating index document...\n");
+    await $this->getStdout()->writeAsync("Creating index document...\n");
     \file_put_contents(
       $prefix.'index'.$extension,
       (new IndexDocumentBuilder($context))->getIndexDocument(),
     );
 
-    $this->getStdout()->write("Done.\n");
+    await $this->getStdout()->writeAsync("Done.\n");
 
     return 0;
   }
@@ -162,6 +162,6 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     if ($this->verbosity === 0) {
       return;
     }
-    $this->getStdout()->write($what);
+    \HH\Asio\join($this->getStdout()->writeAsync($what));
   }
 }
