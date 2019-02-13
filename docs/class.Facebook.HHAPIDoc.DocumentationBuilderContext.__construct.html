@@ -36,20 +36,18 @@
 <h1>Facebook\HHAPIDoc\DocumentationBuilderContext::__construct()</h1>
 <p>Create an instance</p>
 <pre><code class="language-Hack"><span class="hs-Script"><span class="hs-MarkupSection"><span class="hs-MarkupToken">public function __construct(
-  Facebook\HHAPIDoc\OutputFormat $format,
   Facebook\HHAPIDoc\Index $index,
   IPathProvider</span><span class="hs-MarkupSuffix"><span class="hs-LessThanQuestionToken">&lt;?</span></span></span><span class="hs-ExpressionStatement"><span class="hs-BinaryExpression"><span class="hs-NameToken">string</span><span class="hs-GreaterThanToken">&gt; </span><span class="hs-VariableExpression"><span class="hs-VariableToken">$pathProvider</span></span></span></span><span class="hs-ExpressionStatement"><span class="hs-CommaToken">,
-</span></span><span class="hs-ExpressionStatement"><span class="hs-NameToken">  bool </span></span><span class="hs-ExpressionStatement"><span class="hs-VariableExpression"><span class="hs-VariableToken">$syntaxHighlightingOn</span></span></span><span class="hs-ExpressionStatement"><span class="hs-CommaToken">,
+</span></span><span class="hs-ExpressionStatement"><span class="hs-ScopeResolutionExpression"><span class="hs-NameToken">  this</span><span class="hs-ColonColonToken">::</span><span class="hs-NameToken">TConfig </span></span></span><span class="hs-ExpressionStatement"><span class="hs-VariableExpression"><span class="hs-VariableToken">$config</span></span></span><span class="hs-ExpressionStatement"><span class="hs-CommaToken">,
 </span><span class="hs-SemicolonToken">);</span></span><span class="hs-EndOfFile"><span class="hs-EndOfFileToken"></span></span></span></code></pre>
 
 <h2>Parameters</h2>
 <ul>
-<li><code>Facebook\HHAPIDoc\OutputFormat $format</code> the desired documentation format</li>
 <li><a href="type.Facebook.HHAPIDoc.Index.html"><code>Facebook\HHAPIDoc\Index</code></a><code> $index</code> an <code>Index</code> of all <code>Documentable</code>s. This may be used for
 autolinking.</li>
 <li><code>IPathProvider&lt;?string&gt; $pathProvider</code> a path provider that returns paths for documentables
 that exist, or null for ones that don't.</li>
-<li><code>bool $syntaxHighlightingOn</code></li>
+<li><code>this::TConfig $config</code></li>
 </ul>
 
 </body>
