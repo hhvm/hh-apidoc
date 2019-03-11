@@ -15,10 +15,10 @@ hh_client
 # Look ma, no tests!
 # hhvm vendor/bin/hacktest tests/
 if !(hhvm --version | grep -q -- -dev); then
-  hhvm vendor/bin/hhast-lint
+  vendor/bin/hhast-lint
 fi
 
-hhvm bin/hh-apidoc -o docs src
+bin/hh-apidoc -o docs src
 git add docs/
 if ! git diff --quiet --cached; then
   echo "Documentation needs regenerating."
