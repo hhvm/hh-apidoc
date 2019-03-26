@@ -16,10 +16,8 @@ composer install
 
 hh_client
 # Look ma, no tests!
-# hhvm vendor/bin/hacktest tests/
-if !(hhvm --version | grep -q -- -dev); then
-  vendor/bin/hhast-lint
-fi
+# vendor/bin/hacktest tests/
+vendor/bin/hhast-lint
 
 bin/hh-apidoc -o docs src
 git add docs/
