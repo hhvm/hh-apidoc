@@ -96,16 +96,16 @@
         },
         {
             "name": "facebook/fbmarkdown",
-            "version": "v1.5",
+            "version": "v1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/fbmarkdown.git",
-                "reference": "1fb17bbe3a8c9fb007d7e7497257b7e296fcc184"
+                "reference": "6babf946014e5665c34cd943d376318e5b350d1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/fbmarkdown/zipball/1fb17bbe3a8c9fb007d7e7497257b7e296fcc184",
-                "reference": "1fb17bbe3a8c9fb007d7e7497257b7e296fcc184",
+                "url": "https://api.github.com/repos/hhvm/fbmarkdown/zipball/6babf946014e5665c34cd943d376318e5b350d1b",
+                "reference": "6babf946014e5665c34cd943d376318e5b350d1b",
                 "shasum": ""
             },
             "require": {
@@ -116,7 +116,7 @@
             "require-dev": {
                 "facebook/fbexpect": "^2.1.0",
                 "hhvm/hacktest": "^1.0",
-                "hhvm/hhast": "^3.26.0",
+                "hhvm/hhast": "^4.0",
                 "hhvm/hhvm-autoload": "^2.0"
             },
             "type": "library",
@@ -136,20 +136,20 @@
                 "hack",
                 "markdown"
             ],
-            "time": "2019-02-11T19:32:47+00:00"
+            "time": "2019-03-26T20:30:14+00:00"
         },
         {
             "name": "facebook/hh-clilib",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hh-clilib.git",
-                "reference": "44f30c1f07b9d36430bfff721a119a0d43b15edd"
+                "reference": "9d6b1a8686951da24ab68ffeba25ae85d1788408"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/44f30c1f07b9d36430bfff721a119a0d43b15edd",
-                "reference": "44f30c1f07b9d36430bfff721a119a0d43b15edd",
+                "url": "https://api.github.com/repos/hhvm/hh-clilib/zipball/9d6b1a8686951da24ab68ffeba25ae85d1788408",
+                "reference": "9d6b1a8686951da24ab68ffeba25ae85d1788408",
                 "shasum": ""
             },
             "require": {
@@ -160,7 +160,7 @@
             "require-dev": {
                 "facebook/fbexpect": "^2.1.0",
                 "hhvm/hacktest": "^1.0.0",
-                "hhvm/hhast": "^4.0"
+                "hhvm/hhast": "^4.0.2"
             },
             "type": "library",
             "extra": {
@@ -172,7 +172,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2019-02-12T20:14:07+00:00"
+            "time": "2019-03-26T18:31:27+00:00"
         },
         {
             "name": "hhvm/hhast",
@@ -220,16 +220,16 @@
         },
         {
             "name": "hhvm/hhvm-autoload",
-            "version": "v2.0.5",
+            "version": "v2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hhvm-autoload.git",
-                "reference": "dbd50d7fb1856d1f6757e10bc30eb2bf5d17b3f1"
+                "reference": "4f510960e71adcad661c33ae355d0d9670d9c805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hhvm-autoload/zipball/dbd50d7fb1856d1f6757e10bc30eb2bf5d17b3f1",
-                "reference": "dbd50d7fb1856d1f6757e10bc30eb2bf5d17b3f1",
+                "url": "https://api.github.com/repos/hhvm/hhvm-autoload/zipball/4f510960e71adcad661c33ae355d0d9670d9c805",
+                "reference": "4f510960e71adcad661c33ae355d0d9670d9c805",
                 "shasum": ""
             },
             "require": {
@@ -263,7 +263,7 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-03-22T21:27:20+00:00"
+            "time": "2019-03-26T17:57:44+00:00"
         },
         {
             "name": "hhvm/hsl",
