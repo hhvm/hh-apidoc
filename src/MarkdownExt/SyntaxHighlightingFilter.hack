@@ -44,7 +44,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     }
 
     $info = $node->getInfoString();
-    if (!C\contains_key(self::KEYWORDS, $info)) {
+    if ($info is null || (!C\contains_key(self::KEYWORDS, $info))) {
       return vec[$node];
     }
 
