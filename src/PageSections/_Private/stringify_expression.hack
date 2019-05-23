@@ -18,5 +18,5 @@ function stringify_expression(
   if ($e->hasStaticValue()) {
     return \var_export($e->getStaticValue(), true);
   }
-  return ast_without_trivia($e->getAST()->getCode());
+  return ast_without_trivia($e->getAST())->getCode();
 }
