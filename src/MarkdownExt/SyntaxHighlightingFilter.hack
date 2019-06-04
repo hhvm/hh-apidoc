@@ -61,7 +61,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
   }
 
   /** Convert an HHAST FFP AST node into an HTML string. */
-  protected static function getHTML(HHAST\EditableNode $node): string {
+  protected static function getHTML(HHAST\Node $node): string {
     if ($node instanceof HHAST\Missing) {
       return '';
     }
@@ -74,7 +74,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
         |> Str\join($$, '');
     }
 
-    if ($node instanceof HHAST\EditableList) {
+    if ($node instanceof HHAST\List ) {
       return $inner;
     }
 
