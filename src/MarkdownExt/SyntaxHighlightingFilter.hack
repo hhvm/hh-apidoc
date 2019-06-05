@@ -74,7 +74,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
         |> Str\join($$, '');
     }
 
-    if ($node instanceof HHAST\List ) {
+    if ($node instanceof HHAST\NodeList ) {
       return $inner;
     }
 
