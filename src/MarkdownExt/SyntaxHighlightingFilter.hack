@@ -47,9 +47,13 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
       return vec[$node];
     }
 
-    $ast = \HH\Asio\join(HHAST\from_file_async(
-      HHAST\File::fromPathAndContents('__DATA__', $node->getCode()),
-    ));
+    try {
+      $ast = \HH\Asio\join(HHAST\from_file_async(
+        HHAST\File::fromPathAndContents('__DATA__', $node->getCode()),
+      ));
+    } catch (\Exception $_) {
+      return vec[$node];
+    }
     return vec[new Markdown\Blocks\HTMLBlock(
       '<pre><code class="language-'.
       $info.
