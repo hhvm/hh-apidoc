@@ -10,8 +10,8 @@
 namespace Facebook\HHAPIDoc;
 
 use type Facebook\DefinitionFinder\{
-  ScannedDefinition,
   ScannedClassish,
+  ScannedDefinition,
 };
 
 /** An API that can be documented.

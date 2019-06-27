@@ -14,9 +14,9 @@ use type Facebook\DefinitionFinder\{
   ScannedFunction,
   ScannedInterface,
   ScannedMethod,
+  ScannedNewtype,
   ScannedTrait,
   ScannedType,
-  ScannedNewtype,
 };
 
 use namespace HH\Lib\C;

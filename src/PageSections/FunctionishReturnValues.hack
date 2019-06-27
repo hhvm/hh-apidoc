@@ -12,7 +12,7 @@ namespace Facebook\HHAPIDoc\PageSections;
 use namespace Facebook\HHAPIDoc\DocBlock;
 use type Facebook\DefinitionFinder\ScannedFunctionish;
 
-use namespace HH\Lib\{C, Vec, Str};
+use namespace HH\Lib\{C, Str, Vec};
 
 /** Return information on possible return values for a function or method. */
 final class FunctionishReturnValues extends PageSection {

@@ -11,8 +11,7 @@ namespace Facebook\HHAPIDoc\MarkdownExt;
 
 use type Facebook\Markdown\Blocks\CodeBlock;
 use type Facebook\HHAPIDoc\OutputFormat;
-use namespace Facebook\Markdown;
-use namespace Facebook\HHAST;
+use namespace Facebook\{HHAST, Markdown};
 use namespace HH\Lib\{C, Str, Vec};
 
 /**

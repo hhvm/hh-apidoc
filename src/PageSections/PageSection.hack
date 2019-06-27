@@ -10,13 +10,13 @@
 namespace Facebook\HHAPIDoc\PageSections;
 
 use type Facebook\HHAPIDoc\{
-  Documentable,
   DocBlock\DocBlock,
+  Documentable,
   DocumentationBuilderContext,
 };
 use type Facebook\DefinitionFinder\{
-  ScannedDefinition,
   ScannedClassish,
+  ScannedDefinition,
 };
 
 /** Base class for all page sections.
