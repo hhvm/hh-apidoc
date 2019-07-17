@@ -20,7 +20,7 @@ final class TypeDeclaration extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $t = $this->definition;
-    if (!$t instanceof ScannedTypeish) {
+    if (!$t is ScannedTypeish) {
       return null;
     }
     return $this->getTypeDeclaration($t);
@@ -34,7 +34,7 @@ final class TypeDeclaration extends PageSection {
       $code .= 'namespace '.$ns.";\n\n";
     }
 
-    if ($t instanceof ScannedType) {
+    if ($t is ScannedType) {
       $code .= 'type ';
     } else {
       $code .= 'newtype ';
@@ -42,7 +42,7 @@ final class TypeDeclaration extends PageSection {
 
     $code .= _Private\ns_normalize_type($ns, $t->getName());
 
-    if ($t instanceof ScannedType) {
+    if ($t is ScannedType) {
       $code .= ' = '.
         _Private\stringify_typehint(
           $t->getNamespaceName(),

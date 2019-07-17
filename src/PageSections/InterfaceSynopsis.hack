@@ -24,7 +24,7 @@ final class InterfaceSynopsis extends PageSection {
   <<__Override>>
   public function getMarkdown(): ?string {
     $c = $this->definition;
-    if (!$c instanceof ScannedClassish) {
+    if (!$c is ScannedClassish) {
       return null;
     }
 
@@ -104,13 +104,13 @@ final class InterfaceSynopsis extends PageSection {
     ScannedMethod $m,
   ): ?string {
     $pp = $this->context->getPathProvider();
-    if ($c instanceof ScannedClass) {
+    if ($c is ScannedClass) {
       return $pp->getPathForClassMethod($c->getName(), $m->getName());
     }
-    if ($c instanceof ScannedInterface) {
+    if ($c is ScannedInterface) {
       return $pp->getPathForInterfaceMethod($c->getName(), $m->getName());
     }
-    if ($c instanceof ScannedTrait) {
+    if ($c is ScannedTrait) {
       return $pp->getPathForTraitMethod($c->getName(), $m->getName());
     }
     invariant_violation("Don't know how to handle type %s", \get_class($c));
@@ -131,11 +131,11 @@ final class InterfaceSynopsis extends PageSection {
       $ret .= 'final ';
     }
 
-    if ($c instanceof ScannedClass) {
+    if ($c is ScannedClass) {
       $ret .= 'class ';
-    } else if ($c instanceof ScannedInterface) {
+    } else if ($c is ScannedInterface) {
       $ret .= 'interface ';
-    } else if ($c instanceof ScannedTrait) {
+    } else if ($c is ScannedTrait) {
       $ret .= 'trait ';
     } else {
       invariant_violation("Don't know what a %s is.", \get_class($c));

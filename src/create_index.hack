@@ -38,31 +38,31 @@ function create_index(
     $def = $what['definition'];
     $name = $def->getName();
 
-    if ($def instanceof ScannedFunction) {
+    if ($def is ScannedFunction) {
       $index['functions'][] = $name;
       continue;
     }
-    if ($def instanceof ScannedType) {
+    if ($def is ScannedType) {
       $index['types'][] = $name;
       continue;
     }
-    if ($def instanceof ScannedNewtype) {
+    if ($def is ScannedNewtype) {
       $index['newtypes'][] = $name;
       continue;
     }
-    if ($def instanceof ScannedClass) {
+    if ($def is ScannedClass) {
       if (!C\contains_key($index['classes'], $name)) {
         $index['classes'][$def->getName()] = keyset[];
       }
       continue;
     }
-    if ($def instanceof ScannedInterface) {
+    if ($def is ScannedInterface) {
       if (!C\contains_key($index['interfaces'], $name)) {
         $index['interfaces'][$def->getName()] = keyset[];
       }
       continue;
     }
-    if ($def instanceof ScannedTrait) {
+    if ($def is ScannedTrait) {
       if (!C\contains_key($index['traits'], $name)) {
         $index['traits'][$def->getName()] = keyset[];
       }
@@ -70,7 +70,7 @@ function create_index(
     }
 
     invariant(
-      $def instanceof ScannedMethod,
+      $def is ScannedMethod,
       "Can't handle class %s",
       \get_class($def),
     );
@@ -78,21 +78,21 @@ function create_index(
     $p = $what['parent'];
     invariant($p !== null, 'got a method with null parent');
     $pn = $p->getName();
-    if ($p instanceof ScannedClass) {
+    if ($p is ScannedClass) {
       if (!C\contains_key($index['classes'], $pn)) {
         $index['classes'][$pn] = keyset[];
       }
       $index['classes'][$pn][] = $name;
       continue;
     }
-    if ($p instanceof ScannedInterface) {
+    if ($p is ScannedInterface) {
       if (!C\contains_key($index['interfaces'], $pn)) {
         $index['interfaces'][$pn] = keyset[];
       }
       $index['interfaces'][$pn][] = $name;
       continue;
     }
-    if ($p instanceof ScannedTrait) {
+    if ($p is ScannedTrait) {
       if (!C\contains_key($index['traits'], $pn)) {
         $index['traits'][$pn] = keyset[];
       }

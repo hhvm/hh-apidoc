@@ -35,7 +35,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     Markdown\RenderContext $context,
     Markdown\ASTNode $node,
   ): vec<Markdown\ASTNode> {
-    if (!$node instanceof CodeSpan) {
+    if (!$node is CodeSpan) {
       return vec[$node];
     }
 
@@ -55,7 +55,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     }
 
     invariant(
-      $context instanceof RenderContext,
+      $context is RenderContext,
       'Expected render context to be a %s',
       RenderContext::class,
     );
@@ -129,7 +129,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     }
 
     $def = $context->getDocumentable()['definition'];
-    if ($def instanceof ScannedClassish) {
+    if ($def is ScannedClassish) {
       $path = self::getPathForMethod($context, $def->getName(), $search);
       if ($path !== null) {
         return $path;

@@ -24,34 +24,34 @@ function get_path_for_documentable(
   Documentable $what,
 ): ?string {
   $def = $what['definition'];
-  if ($def instanceof ScannedClass) {
+  if ($def is ScannedClass) {
     return $provider->getPathForClass($def->getName());
   }
-  if ($def instanceof ScannedInterface) {
+  if ($def is ScannedInterface) {
     return $provider->getPathForInterface($def->getName());
   }
-  if ($def instanceof ScannedTrait) {
+  if ($def is ScannedTrait) {
     return $provider->getPathForTrait($def->getName());
   }
-  if ($def instanceof ScannedFunction) {
+  if ($def is ScannedFunction) {
     return $provider->getPathForFunction($def->getName());
   }
-  if ($def instanceof ScannedType) {
+  if ($def is ScannedType) {
     return $provider->getPathForTransparentTypeAlias($def->getName());
   }
-  if ($def instanceof ScannedNewtype) {
+  if ($def is ScannedNewtype) {
     return $provider->getPathForOpaqueTypeAlias($def->getName());
   }
-  if ($def instanceof ScannedMethod) {
+  if ($def is ScannedMethod) {
     $p = $what['parent'];
-    if ($p instanceof ScannedClass) {
+    if ($p is ScannedClass) {
       return $provider->getPathForClassMethod($p->getName(), $def->getName());
     }
-    if ($p instanceof ScannedInterface) {
+    if ($p is ScannedInterface) {
       return
         $provider->getPathForInterfaceMethod($p->getName(), $def->getName());
     }
-    if ($p instanceof ScannedTrait) {
+    if ($p is ScannedTrait) {
       return $provider->getPathForTraitMethod($p->getName(), $def->getName());
     }
   }

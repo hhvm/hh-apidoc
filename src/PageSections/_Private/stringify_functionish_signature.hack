@@ -29,7 +29,7 @@ function stringify_functionish_signature(
     $name = $function->getName();
   }
 
-  if ($function instanceof ScannedMethod) {
+  if ($function is ScannedMethod) {
     if ($function->isAbstract()) {
       $ret .= 'abstract ';
     }

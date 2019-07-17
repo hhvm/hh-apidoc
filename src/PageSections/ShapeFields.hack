@@ -19,7 +19,7 @@ final class ShapeFields extends PageSection {
   public function getMarkdown(): ?string {
     $t = $this->definition;
     // Intentionally not documenting opaque type aliases
-    if (!$t instanceof ScannedType) {
+    if (!$t is ScannedType) {
       return null;
     }
     $t = $t->getAliasedType();

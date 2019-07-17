@@ -33,10 +33,10 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     Markdown\RenderContext $context,
     Markdown\ASTNode $node,
   ): vec<Markdown\ASTNode> {
-    if (!$node instanceof CodeBlock) {
+    if (!$node is CodeBlock) {
       return vec[$node];
     }
-    if ($context instanceof namespace\RenderContext) {
+    if ($context is namespace\RenderContext) {
       if ($context->getOutputFormat() !== OutputFormat::HTML) {
         return vec[$node];
       }
@@ -65,10 +65,6 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
 
   /** Convert an HHAST FFP AST node into an HTML string. */
   protected static function getHTML(HHAST\Node $node): string {
-    if ($node instanceof HHAST\Missing) {
-      return '';
-    }
-
     if ($node->isTrivia() || $node->isToken()) {
       $inner = \htmlspecialchars($node->getCode());
     } else {
@@ -77,7 +73,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
         |> Str\join($$, '');
     }
 
-    if ($node instanceof HHAST\NodeList ) {
+    if ($node is HHAST\NodeList<_> ) {
       return $inner;
     }
 
