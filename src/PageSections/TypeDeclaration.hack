@@ -40,18 +40,23 @@ final class TypeDeclaration extends PageSection {
       $code .= 'newtype ';
     }
 
-    $code .= _Private\ns_normalize_type($ns, $t->getName());
+    $code .= $t->getShortName();
 
     if ($t is ScannedType) {
-      $code .= ' = '.
-        _Private\stringify_typehint(
-          $t->getNamespaceName(),
-          $t->getAliasedType(),
-        ).
-        ';';
-    } else {
-      $code .= ';';
+      $code .= ' = ';
+      // We want custom multi-line formatting for shapes here, so not calling
+      // stringify_typehint() for those. Note that we still use the default
+      // stringify_typehint() for shapes in other places, e.g. as function
+      // arguments.
+      $code .= $t->getAliasedType()->isShape()
+        ? _Private\stringify_shape($ns, $t->getAliasedType()->getShapeFields())
+        : _Private\stringify_typehint(
+            $t->getNamespaceName(),
+            $t->getAliasedType(),
+          );
     }
+
+    $code .= ';';
 
     return Str\format("```Hack\n%s\n```", $code);
   }

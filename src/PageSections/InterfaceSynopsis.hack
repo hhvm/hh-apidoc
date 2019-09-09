@@ -143,13 +143,13 @@ final class InterfaceSynopsis extends PageSection {
 
     $ret .= $c->getShortName();
 
-    $p = $c->getParentClassName();
+    $p = $c->getParentClassInfo();
     if ($p !== null) {
-      $ret .= ' extends '._Private\ns_normalize_type($ns, $p);
+      $ret .= ' extends '._Private\stringify_typehint($ns, $p);
     }
-    if ($interfaces = $c->getInterfaceNames()) {
+    if ($interfaces = $c->getInterfaceInfo()) {
       $ret .= $interfaces
-        |> Vec\map($$, $i ==> _Private\ns_normalize_type($ns, $i))
+        |> Vec\map($$, $i ==> _Private\stringify_typehint($ns, $i))
         |> Str\join($$, ', ')
         |> ' implements '.$$;
     }
