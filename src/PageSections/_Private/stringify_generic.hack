@@ -23,7 +23,7 @@ function stringify_generic(
   } else {
     $base = '';
   }
-  $base .= ns_normalize_type($ns, $generic->getName());
+  $base .= $generic->getName();
 
   $constraints = $generic->getConstraints();
   if (C\is_empty($constraints)) {
@@ -31,7 +31,10 @@ function stringify_generic(
   }
 
   return $constraints
-    |> Vec\map($$, $c ==> $c['relationship'].' '.$c['type']->getTypeText())
+    |> Vec\map(
+      $$,
+      $c ==> $c['relationship'].' '.stringify_typehint($ns, $c['type']),
+    )
     |> Str\join($$, ' ')
     |> $base.' '.$$;
 }

@@ -9,29 +9,18 @@
 
 namespace Facebook\HHAPIDoc\PageSections\_Private;
 
-use type Facebook\DefinitionFinder\ScannedTypehint;
-use namespace HH\Lib\{C, Str, Vec};
+use type Facebook\DefinitionFinder\{ScannedTypehint, TypeTextOptions};
 
+/**
+ * Render `$type` as concisely and unambiguously as possible in the current
+ * namespace.
+ */
 function stringify_typehint(
   string $ns,
   ScannedTypehint $type,
 ): string {
-  $s = $type->isNullable() ? '?' : '';
-  if ($type->isShape()) {
-    return $s.stringify_shape($ns, $type->getShapeFields());
-  }
-  invariant($type->getTypeName() !== 'shape', 'got a shape thats not a shape');
-  $s .= ns_normalize_type($ns, $type->getTypeName());
-
-  $generics = $type->getGenericTypes();
-  if (C\is_empty($generics)) {
-    return $s;
-  }
-
-  $s .= $generics
-    |> Vec\map($$, $sub ==> stringify_typehint($ns, $sub))
-    |> Str\join($$, ', ')
-    |> '<'.$$.'>';
-
-  return $s;
+  // This just delegates to the implementation in ScannedTypehint, but we keep
+  // this function here to ensure that we always call getTypeText() consistently
+  // with the same options.
+  return $type->getTypeText($ns, TypeTextOptions::STRIP_AUTOIMPORTED_NAMESPACE);
 }
