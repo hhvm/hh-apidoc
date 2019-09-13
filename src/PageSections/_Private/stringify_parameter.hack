@@ -21,6 +21,10 @@ function stringify_parameter(
 ): string {
   $s = '';
 
+  if ($parameter->isInOut()) {
+    $s .= 'inout ';
+  }
+
   $types = $docs['types'] ?? vec[];
   if ($types) {
     $s .= Str\join($types, '|').' ';
