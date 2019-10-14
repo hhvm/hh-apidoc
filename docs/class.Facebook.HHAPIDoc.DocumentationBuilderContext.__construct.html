@@ -46,17 +46,17 @@
 <p>Create an instance</p>
 <pre><code class="language-Hack">public function __construct(
   Facebook\HHAPIDoc\Index $index,
-  IPathProvider&lt;?string&gt; $pathProvider,
-  Facebook\HHAPIDoc\this::TConfig $config,
+  Facebook\HHAPIDoc\IPathProvider&lt;?string&gt; $pathProvider,
+  this::TConfig $config,
 );
 </code></pre>
 <h2>Parameters</h2>
 <ul>
 <li><a href="type.Facebook.HHAPIDoc.Index.html"><code>Facebook\HHAPIDoc\Index</code></a><code> $index</code> an <code>Index</code> of all <code>Documentable</code>s. This may be used for
 autolinking.</li>
-<li><code>IPathProvider&lt;?string&gt; $pathProvider</code> a path provider that returns paths for documentables
+<li><a href="interface.Facebook.HHAPIDoc.IPathProvider.html"><code>Facebook\HHAPIDoc\IPathProvider&lt;?string&gt;</code></a><code> $pathProvider</code> a path provider that returns paths for documentables
 that exist, or null for ones that don't.</li>
-<li><code>Facebook\HHAPIDoc\this::TConfig $config</code></li>
+<li><code>this::TConfig $config</code></li>
 </ul>
 
 </body>

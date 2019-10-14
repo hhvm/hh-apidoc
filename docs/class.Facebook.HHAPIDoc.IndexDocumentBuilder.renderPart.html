@@ -47,14 +47,14 @@
 <pre><code class="language-Hack">protected function renderPart(
   string $title,
   keyset&lt;string&gt; $names,
-  callable $get_path,
+  (function(string): ?string) $get_path,
 ): ?string;
 </code></pre>
 <h2>Parameters</h2>
 <ul>
 <li><code>string $title</code> the title of the section - e.g. 'Classes'</li>
 <li><code>keyset&lt;string&gt; $names</code> the names of all the definitions that belong in this section</li>
-<li><code>callable $get_path</code> a callable that takes a name from <code>$names</code> and returns
+<li><code>(function(string): ?string) $get_path</code> a callable that takes a name from <code>$names</code> and returns
 <code>null</code> if a path can't be found, otherwise returns a path suitable for
 linking to for the specified name.</li>
 </ul>
