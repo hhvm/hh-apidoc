@@ -65,7 +65,21 @@ final class DocBlock {
 
     $content = Str\trim_left(Str\join($content_lines, "\n"));
 
-    $first_period = Str\search($content, '.');
+    // Find first period that is not nested e.g. inside a link's URL.
+    $first_period = null;
+    $nesting_level = 0;
+    for ($i = 0; $i < Str\length($content); ++$i) {
+      if ($content[$i] === '.' && $nesting_level === 0) {
+        $first_period = $i;
+        break;
+      } else if ($content[$i] === '(' || $content[$i] === '[') {
+        ++$nesting_level;
+      } else if ($content[$i] === ')' || $content[$i] === ']') {
+        // Trim at 0 in case the docblock is not correctly parenthesized.
+        $nesting_level = Math\maxva($nesting_level - 1, 0);
+      }
+    }
+
     if ($first_period !== null) {
       // Handle '...'
       $slice = Str\slice($content, $first_period);
