@@ -35,9 +35,6 @@ function stringify_parameter(
   if ($parameter->isVariadic()) {
     $s .= '...';
   }
-  if ($parameter->isPassedByReference()) {
-    $s .= '&';
-  }
   $s .= '$'.$parameter->getName();
 
   if ($parameter->isOptional()) {
