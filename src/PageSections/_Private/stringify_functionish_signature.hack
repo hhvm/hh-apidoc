@@ -55,7 +55,8 @@ function stringify_functionish_signature(
   $ret .= stringify_generics($ns, $function->getGenericTypes());
   $ret .= stringify_parameters($ns, $format, $function, $docs);
 
-  if ($type = $function->getReturnType()) {
+  $type = $function->getReturnType();
+  if ($type) {
     $ret .= ': '.stringify_typehint($ns, $type);
   }
 

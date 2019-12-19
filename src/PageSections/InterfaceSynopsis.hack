@@ -147,7 +147,8 @@ final class InterfaceSynopsis extends PageSection {
     if ($p !== null) {
       $ret .= ' extends '._Private\stringify_typehint($ns, $p);
     }
-    if ($interfaces = $c->getInterfaceInfo()) {
+    $interfaces = $c->getInterfaceInfo();
+    if ($interfaces) {
       $ret .= $interfaces
         |> Vec\map($$, $i ==> _Private\stringify_typehint($ns, $i))
         |> Str\join($$, ', ')

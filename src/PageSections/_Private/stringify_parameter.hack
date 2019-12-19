@@ -26,10 +26,11 @@ function stringify_parameter(
   }
 
   $types = $docs['types'] ?? vec[];
+  $typehint = $parameter->getTypehint();
   if ($types) {
     $s .= Str\join($types, '|').' ';
-  } else if ($th = $parameter->getTypehint()) {
-    $s .= stringify_typehint($ns, $th).' ';
+  } else if ($typehint) {
+    $s .= stringify_typehint($ns, $typehint).' ';
   }
 
   if ($parameter->isVariadic()) {
