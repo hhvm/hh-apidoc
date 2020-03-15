@@ -12,6 +12,7 @@ namespace Facebook\HHAPIDoc;
 use type Facebook\DefinitionFinder\TreeParser;
 use type Facebook\CLILib\CLIWithRequiredArguments;
 use namespace Facebook\CLILib\CLIOptions;
+use namespace Facebook\HHAPIDoc\PageSections\_Private;
 use namespace HH\Lib\{Str, Vec};
 
 /** The main `hh-apidoc` CLI */
@@ -26,10 +27,33 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private int $verbosity = 0;
   private bool $syntaxHighlightingOn = true;
   private ?PageSections\FrontMatter::TConfig $frontMatterConfig = null;
+  private bool $hidePrivateNamespaces = false;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
     return vec[
+      CLIOptions\flag(
+        () ==> {
+          _Private\Globals::$shouldHidePrivateMethods = true;
+          $this->hidePrivateNamespaces = true;
+        },
+        'A hybrid flag for --hide-private-namespaces and --hide-private-methods',
+        '--hide-all-private'
+      ),
+      CLIOptions\flag(
+        () ==> {
+          $this->hidePrivateNamespaces = true;
+        },
+        'Entities from _Private and __Private namespaces',
+        '--hide-private-namespaces'
+      ),
+      CLIOptions\flag(
+        () ==> {
+          _Private\Globals::$shouldHidePrivateMethods = true;
+        },
+        'Hide all methods with the `private` accessability',
+        '--hide-private-methods'
+      ),
       CLIOptions\flag(
         () ==> { $this->verbosity++; },
         'Increase output verbosity',
@@ -117,7 +141,12 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
 
     await $this->getStdout()->writeAsync("Parsing...\n");
     $documentables = $this->parse();
-    $index = create_index($documentables);
+    $index = create_index(
+      $documentables,
+      shape(
+        'hidePrivateNamespaces' => $this->hidePrivateNamespaces
+      )
+    );
 
     $paths = new SingleDirectoryPathProvider($extension);
     $config = shape(
