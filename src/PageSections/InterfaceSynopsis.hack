@@ -28,9 +28,24 @@ final class InterfaceSynopsis extends PageSection {
       return null;
     }
 
+    $get_visibility_as_string = (ScannedMethod $meth) ==> {
+      if ($meth->isPublic()) {
+        return 'public';
+      } else if ($meth->isProtected()) {
+        return 'protected';
+      } else if ($meth->isPrivate()) {
+        return 'private';
+      } else {
+        invariant_violation(
+          'Visibility modifier unexception for %s',
+          $meth->getName(),
+        );
+      }
+    };
+
     $methods = Dict\group_by(
       $c->getMethods(),
-      $m ==> $m->getVisibilityAsString(),
+      $m ==> $get_visibility_as_string($m),
     );
 
     if (_Private\Globals::$shouldHidePrivateMethods) {
