@@ -37,7 +37,7 @@ final class InterfaceSynopsis extends PageSection {
         return 'private';
       } else {
         invariant_violation(
-          'Visibility modifier unexception for %s',
+          'Visibility modifier expected for %s',
           $meth->getName(),
         );
       }
