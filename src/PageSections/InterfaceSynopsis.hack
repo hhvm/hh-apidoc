@@ -17,7 +17,7 @@ use type Facebook\DefinitionFinder\{
   ScannedMethod,
   ScannedTrait,
 };
-use namespace HH\Lib\{C, Dict, Str, Vec};
+use namespace HH\Lib\{C, Str, Vec};
 
 /** Render the outline of a class, interface, or trait */
 final class InterfaceSynopsis extends PageSection {
@@ -28,38 +28,23 @@ final class InterfaceSynopsis extends PageSection {
       return null;
     }
 
-    $get_visibility_as_string = (ScannedMethod $meth) ==> {
-      if ($meth->isPublic()) {
-        return 'public';
-      } else if ($meth->isProtected()) {
-        return 'protected';
-      } else if ($meth->isPrivate()) {
-        return 'private';
-      } else {
-        invariant_violation(
-          'Visibility modifier expected for %s',
-          $meth->getName(),
-        );
-      }
-    };
-
-    $methods = Dict\group_by(
-      $c->getMethods(),
-      $m ==> $get_visibility_as_string($m),
-    );
-
-    if (_Private\Globals::$shouldHidePrivateMethods) {
-      unset($methods['private']);
-    }
-
-    $methods = Vec\map_with_key(
-      $methods,
-      ($visibility, $meths) ==> $this->getMethodList(
-        Str\format('### %s Methods', Str\capitalize($visibility)),
+    $methods = vec[
+      $this->getMethodList(
+        "### Public Methods",
         $c,
-        $meths,
+        Vec\filter($c->getMethods(), $m ==> $m->isPublic()),
       ),
-    );
+      $this->getMethodList(
+        "### Protected Methods",
+        $c,
+        Vec\filter($c->getMethods(), $m ==> $m->isProtected()),
+      ),
+      _Private\Globals::$shouldHidePrivateMethods ? $this->getMethodList(
+        "### Private Methods",
+        $c,
+        Vec\filter($c->getMethods(), $m ==> $m->isPrivate()),
+      ) : null,
+    ];
 
     return "## Interface Synopsis\n\n".
       $this->getInheritanceInformation($c).
