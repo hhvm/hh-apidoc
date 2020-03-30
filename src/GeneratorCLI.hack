@@ -32,7 +32,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     return vec[
       CLIOptions\flag(
         () ==> { $this->verbosity++; },
-        "Increase output verbosity",
+        'Increase output verbosity',
         '--verbose',
         '-v',
       ),
@@ -40,7 +40,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         OutputFormat::class,
         $f ==> { $this->format = $f; },
         Str\format(
-          "Desired output format (%s). Default: %s",
+          'Desired output format (%s). Default: %s',
           Str\join(OutputFormat::getValues(), '|'),
           (string) $this->format,
         ),
@@ -49,7 +49,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       ),
       CLIOptions\with_required_string(
         $s ==> { $this->outputRoot = $s; },
-        "Directory for output files. Default: working directory",
+        'Directory for output files. Default: working directory',
         '--output',
         '-o',
       ),
@@ -57,7 +57,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         () ==> {
           $this->syntaxHighlightingOn = false;
         },
-        "Generate documentation without syntax highlighting",
+        'Generate documentation without syntax highlighting',
         '--no-highlighting',
         '-n',
       ),
@@ -65,7 +65,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         () ==> {
           $this->frontMatterConfig ??= shape();
         },
-        "Include front matter in the generated markdown",
+        'Include front matter in the generated markdown',
         '--with-frontmatter',
       ),
       CLIOptions\with_required_string(
@@ -74,7 +74,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
           $fm['permalinkPrefix'] = $s;
           $this->frontMatterConfig = $fm;
         },
-        "Add permalinks to frontmatter with the specified prefix",
+        'Add permalinks to frontmatter with the specified prefix',
         '--fm-permalink-prefix',
       ),
       CLIOptions\with_required_string(
@@ -86,7 +86,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
           $fm['constantFields'] = $fields;
           $this->frontMatterConfig = $fm;
         },
-        "Add key:value pair to frontmatter",
+        'Add key:value pair to frontmatter',
         '--fm-key-value',
       ),
     ];
@@ -94,7 +94,12 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
 
   private function parse(): vec<Documentable> {
     return $this->getArguments()
-      |> Vec\map($$, $root ==> \HH\Asio\join(TreeParser::fromPathAsync($root)))
+      |> Vec\map(
+        $$,
+        $root ==>
+          /* HHAST_IGNORE_ERROR[DontUseAsioJoin] */
+          \HH\Asio\join(TreeParser::fromPathAsync($root)),
+      )
       |> Vec\map($$, $parser ==> Documentables\from_parser($parser))
       |> Vec\flatten($$);
   }
@@ -161,6 +166,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     if ($this->verbosity === 0) {
       return;
     }
+    /* HHAST_IGNORE_ERROR[DontUseAsioJoin] */
     \HH\Asio\join($this->getStdout()->writeAsync($what));
   }
 }

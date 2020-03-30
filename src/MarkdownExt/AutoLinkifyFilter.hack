@@ -111,7 +111,7 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     RenderContext $context,
     string $search,
   ): ?string {
-    $search = Str\strip_prefix($search, "\\");
+    $search = Str\strip_prefix($search, '\\');
     $ends = vec['<', '('];
     foreach ($ends as $end) {
       $idx = Str\search($search, $end);

@@ -30,6 +30,6 @@ final class DeprecationMessage extends PageSection {
     if ($message === null) {
       return null;
     }
-    return "**Deprecated:** ".$message;
+    return '**Deprecated:** '.$message;
   }
 }

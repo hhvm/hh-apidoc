@@ -27,8 +27,8 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
    */
   public function getImplicitPrefixes(): keyset<string> {
     return keyset[
-      "HH\\",
-      "HH\\Lib\\",
+      'HH\\',
+      'HH\\Lib\\',
     ];
   }
 
@@ -48,7 +48,7 @@ class RenderContext extends \Facebook\Markdown\RenderContext {
     $p = $this->pathProvider;
     invariant(
       $p !== null,
-      "Call %s::setPathProvider() before rendering",
+      'Call %s::setPathProvider() before rendering',
       static::class,
     );
     return $p;

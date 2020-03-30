@@ -27,6 +27,6 @@ final class NameHeading extends PageSection {
       $md .= '()';
     }
 
-    return Str\replace($md, "\\", "\\\\");
+    return Str\replace($md, '\\', '\\\\');
   }
 }

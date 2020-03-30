@@ -55,5 +55,5 @@ function get_path_for_documentable(
       return $provider->getPathForTraitMethod($p->getName(), $def->getName());
     }
   }
-  invariant_violation("Failed to find path for %s", \get_class($def));
+  invariant_violation('Failed to find path for %s', \get_class($def));
 }

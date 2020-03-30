@@ -48,6 +48,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     }
 
     try {
+      /* HHAST_IGNORE_ERROR[DontUseAsioJoin] */
       $ast = \HH\Asio\join(HHAST\from_file_async(
         HHAST\File::fromPathAndContents('__DATA__', $node->getCode()),
       ));
@@ -80,7 +81,7 @@ final class SyntaxHighlightingFilter extends Markdown\RenderFilter {
     return Str\format(
       '<span class="hs-%s">%s</span>',
       \get_class($node)
-        |> Str\split($$, "\\")
+        |> Str\split($$, '\\')
         |> C\lastx($$)
         |> Str\strip_prefix($$, 'Editable'),
       $inner,
