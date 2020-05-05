@@ -12,7 +12,6 @@ namespace Facebook\HHAPIDoc;
 use type Facebook\DefinitionFinder\TreeParser;
 use type Facebook\CLILib\CLIWithRequiredArguments;
 use namespace Facebook\CLILib\CLIOptions;
-use namespace Facebook\HHAPIDoc\PageSections\_Private;
 use namespace HH\Lib\{Str, Vec};
 
 /** The main `hh-apidoc` CLI */
@@ -28,13 +27,14 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private bool $syntaxHighlightingOn = true;
   private ?PageSections\FrontMatter::TConfig $frontMatterConfig = null;
   private bool $hidePrivateNamespaces = false;
+  private bool $hidePrivateMethods = false;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
     return vec[
       CLIOptions\flag(
         () ==> {
-          _Private\Globals::$shouldHidePrivateMethods = true;
+          $this->hidePrivateMethods = true;
           $this->hidePrivateNamespaces = true;
         },
         'A hybrid flag for --hide-private-namespaces and --hide-private-methods',
@@ -49,7 +49,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       ),
       CLIOptions\flag(
         () ==> {
-          _Private\Globals::$shouldHidePrivateMethods = true;
+          $this->hidePrivateMethods = true;
         },
         'Hide all methods with the `private` accessability',
         '--hide-private-methods'
@@ -152,6 +152,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
     $config = shape(
       'format' => $this->format,
       'syntaxHighlighting' => $this->syntaxHighlightingOn,
+      'hidePrivateMethods' => $this->hidePrivateMethods,
     );
     $fmc = $this->frontMatterConfig;
     if ($fmc is nonnull) {
