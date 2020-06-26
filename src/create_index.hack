@@ -19,11 +19,12 @@ use type Facebook\DefinitionFinder\{
   ScannedType,
 };
 
-use namespace HH\Lib\C;
+use namespace HH\Lib\{C, Str, Vec};
 
 /** @selfdocumenting */
 function create_index(
   Traversable<Documentable> $in,
+  shape('hidePrivateNamespaces' => bool) $options,
 ): Index {
   $index = shape(
     'types' => keyset[],
@@ -33,6 +34,14 @@ function create_index(
     'interfaces' => dict[],
     'traits' => dict[],
   );
+
+  if ($options['hidePrivateNamespaces']) {
+    $in = Vec\filter($in, $def ==> {
+      $namespace = $def['definition']->getNamespaceName();
+      // Supports _Private and __Private
+      return !Str\contains($namespace, '_Private');
+    });
+  }
 
   foreach ($in as $what) {
     $def = $what['definition'];

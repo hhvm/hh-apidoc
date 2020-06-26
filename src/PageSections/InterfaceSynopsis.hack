@@ -39,11 +39,13 @@ final class InterfaceSynopsis extends PageSection {
         $c,
         Vec\filter($c->getMethods(), $m ==> $m->isProtected()),
       ),
-      $this->getMethodList(
-        '### Private Methods',
-        $c,
-        Vec\filter($c->getMethods(), $m ==> $m->isPrivate()),
-      ),
+      $this->context->getConfiguration()['hidePrivateMethods']
+        ? null
+        : $this->getMethodList(
+          '### Private Methods',
+          $c,
+          Vec\filter($c->getMethods(), $m ==> $m->isPrivate()),
+        ),
     ];
 
     return "## Interface Synopsis\n\n".

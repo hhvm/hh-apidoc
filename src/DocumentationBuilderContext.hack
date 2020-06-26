@@ -14,6 +14,7 @@ class DocumentationBuilderContext {
   const type TConfig = shape(
     'format' => OutputFormat,
     'syntaxHighlighting' => bool,
+    'hidePrivateMethods' => bool,
     ?'frontMatter' => PageSections\FrontMatter::TConfig,
   );
   /** Create an instance.
