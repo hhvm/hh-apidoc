@@ -7,7 +7,7 @@ php --version
 
 (
   cd $(mktemp -d)
-  curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version="1.9.3"
 )
 composer install
 
