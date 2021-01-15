@@ -139,7 +139,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         break;
     }
 
-    await $this->getStdout()->writeAsync("Parsing...\n");
+    await $this->getStdout()->writeAllAsync("Parsing...\n");
     $documentables = $this->parse();
     $index = create_index(
       $documentables,
@@ -173,20 +173,20 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       \mkdir($prefix);
     }
 
-    await $this->getStdout()->writeAsync("Generating documentation...\n");
+    await $this->getStdout()->writeAllAsync("Generating documentation...\n");
     foreach ($documentables as $documentable) {
       $content = $md_builder->getDocumentation($documentable);
       $path = get_path_for_documentable($paths, $documentable);
       \file_put_contents($prefix.$path, $content);
       $this->verboseWrite($path."\n");
     }
-    await $this->getStdout()->writeAsync("Creating index document...\n");
+    await $this->getStdout()->writeAllAsync("Creating index document...\n");
     \file_put_contents(
       $prefix.'index'.$extension,
       (new IndexDocumentBuilder($context))->getIndexDocument(),
     );
 
-    await $this->getStdout()->writeAsync("Done.\n");
+    await $this->getStdout()->writeAllAsync("Done.\n");
 
     return 0;
   }
@@ -197,6 +197,6 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       return;
     }
     /* HHAST_IGNORE_ERROR[DontUseAsioJoin] */
-    \HH\Asio\join($this->getStdout()->writeAsync($what));
+    \HH\Asio\join($this->getStdout()->writeAllAsync($what));
   }
 }
