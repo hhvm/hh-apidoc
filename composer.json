@@ -3,7 +3,7 @@
   "bin": [ "bin/hh-apidoc", "bin/hh-apidoc.hack" ],
   "license": "MIT",
   "require": {
-    "hhvm": "^4.29",
+    "hhvm": "^4.58",
     "hhvm/hsl": "^4.0",
     "hhvm/hsl-experimental": "^4.53",
     "facebook/fbmarkdown": "^1.0",
