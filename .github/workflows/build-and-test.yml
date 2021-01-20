@@ -24,5 +24,11 @@ jobs:
       - uses: hhvm/actions/hack-lint-test@master
         with:
           hhvm: ${{matrix.hhvm}}
-          skip_lint: true
+          skip_lint: false
           skip_tests: true
+      - name: Rebuild docs
+        run: bin/hh-apidoc -o docs src
+      - name: Check generated content is unchanged
+        run: |
+          git add docs/
+          git diff --quiet --cached
