@@ -115,6 +115,7 @@ class DocumentationBuilder {
       |> Str\join($$, "\n\n");
 
     $parser_ctx = new Markdown\ParserContext();
+    $parser_ctx->setSourceType(Markdown\SourceType::TRUSTED);
     $ast = Markdown\parse($parser_ctx, $md);
 
     $render_ctx = (new MarkdownExt\RenderContext())

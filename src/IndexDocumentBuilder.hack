@@ -44,7 +44,11 @@ class IndexDocumentBuilder {
     string $markdown,
   ): string {
     $body = $markdown
-      |> Markdown\parse(new Markdown\ParserContext(), $$)
+      |> Markdown\parse(
+        (new Markdown\ParserContext())
+          ->setSourceType(Markdown\SourceType::TRUSTED),
+        $$,
+      )
       |> (new Markdown\HTMLRenderer(new Markdown\RenderContext()))
         ->render($$);
 
