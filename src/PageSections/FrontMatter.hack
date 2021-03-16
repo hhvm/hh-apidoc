@@ -52,7 +52,6 @@ final class FrontMatter extends PageSection {
       }
     }
 
-
     return Dict\map_with_key($fields, ($k, $v) ==> $k.': '.$v)
       |> Str\join($$, "\n")
       |> "---\n".$$."\n---\n";

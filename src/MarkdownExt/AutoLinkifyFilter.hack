@@ -61,7 +61,6 @@ final class AutoLinkifyFilter extends Markdown\RenderFilter {
     );
     $name = $context->getDocumentable()['definition']->getName();
 
-
     $words = Str\split($content, ' ');
     $definition = C\firstx($words);
 

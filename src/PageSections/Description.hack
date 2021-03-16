@@ -9,7 +9,6 @@
 
 namespace Facebook\HHAPIDoc\PageSections;
 
-
 /** Detailed text (if any) describing the current definition. */
 final class Description extends PageSection {
   <<__Override>>
