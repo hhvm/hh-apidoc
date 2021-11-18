@@ -4,16 +4,16 @@ possible.
 
 ## Our Development Process
 
-This project is developed in the 'master' branch on GitHub. Changes should be
+This project is developed in the 'main' branch on GitHub. Changes should be
 submitted as pull requests.
 
-Usually, versions will be tagged directly from master; if changes are needed to
+Usually, versions will be tagged directly from main; if changes are needed to
 an old release, a branch will be cut from the previous release in that series - e.g.
 v1.2.3 might be tagged from a `1.2.x` branch.
 
 ## Pull Requests
 We actively welcome your pull requests.
-1. Fork the repo and create your branch from `master`.
+1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests
 3. Ensure the test suite passes and the example still work
 4. If you haven't already, complete the Contributor License Agreement ("CLA").

@@ -1,6 +1,6 @@
 # hh-apidoc
 
-[![Build Status](https://travis-ci.org/hhvm/hh-apidoc.svg?branch=master)](https://travis-ci.org/hhvm/hh-apidoc)
+[![Continuous Integration](https://github.com/hhvm/hh-apidoc/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/hhvm/hh-apidoc/actions/workflows/build-and-test.yml)
 
 An API documentation generator for Hack files. The generator works on files that start with `<?hh`.
 
