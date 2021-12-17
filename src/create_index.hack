@@ -19,7 +19,7 @@ use type Facebook\DefinitionFinder\{
   ScannedType,
 };
 
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\{Str, Vec};
 
 /** @selfdocumenting */
 function create_index(
@@ -27,9 +27,9 @@ function create_index(
   shape('hidePrivateNamespaces' => bool) $options,
 ): Index {
   $index = shape(
-    'types' => keyset[],
-    'newtypes' => keyset[],
-    'functions' => keyset[],
+    'types' => dict[],
+    'newtypes' => dict[],
+    'functions' => dict[],
     'classes' => dict[],
     'interfaces' => dict[],
     'traits' => dict[],
@@ -48,33 +48,29 @@ function create_index(
     $name = $def->getName();
 
     if ($def is ScannedFunction) {
-      $index['functions'][] = $name;
+      $index['functions'][$name] = $what;
       continue;
     }
     if ($def is ScannedType) {
-      $index['types'][] = $name;
+      $index['types'][$name] = $what;
       continue;
     }
     if ($def is ScannedNewtype) {
-      $index['newtypes'][] = $name;
+      $index['newtypes'][$name] = $what;
       continue;
     }
     if ($def is ScannedClass) {
-      if (!C\contains_key($index['classes'], $name)) {
-        $index['classes'][$def->getName()] = keyset[];
-      }
+      $index['classes'][$name] = $what;
       continue;
     }
+
     if ($def is ScannedInterface) {
-      if (!C\contains_key($index['interfaces'], $name)) {
-        $index['interfaces'][$def->getName()] = keyset[];
-      }
+      $index['interfaces'][$name] = $what;
       continue;
     }
+
     if ($def is ScannedTrait) {
-      if (!C\contains_key($index['traits'], $name)) {
-        $index['traits'][$def->getName()] = keyset[];
-      }
+      $index['traits'][$name] = $what;
       continue;
     }
 
@@ -82,35 +78,6 @@ function create_index(
       $def is ScannedMethod,
       "Can't handle class %s",
       \get_class($def),
-    );
-
-    $p = $what['parent'];
-    invariant($p !== null, 'got a method with null parent');
-    $pn = $p->getName();
-    if ($p is ScannedClass) {
-      if (!C\contains_key($index['classes'], $pn)) {
-        $index['classes'][$pn] = keyset[];
-      }
-      $index['classes'][$pn][] = $name;
-      continue;
-    }
-    if ($p is ScannedInterface) {
-      if (!C\contains_key($index['interfaces'], $pn)) {
-        $index['interfaces'][$pn] = keyset[];
-      }
-      $index['interfaces'][$pn][] = $name;
-      continue;
-    }
-    if ($p is ScannedTrait) {
-      if (!C\contains_key($index['traits'], $pn)) {
-        $index['traits'][$pn] = keyset[];
-      }
-      $index['traits'][$pn][] = $name;
-      continue;
-    }
-    invariant_violation(
-      "Can't handle parent type %s",
-      \get_class($p),
     );
   }
   return $index;

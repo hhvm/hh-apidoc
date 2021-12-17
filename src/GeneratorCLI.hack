@@ -28,6 +28,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
   private ?PageSections\FrontMatter::TConfig $frontMatterConfig = null;
   private bool $hidePrivateNamespaces = false;
   private bool $hidePrivateMethods = false;
+  private bool $hideInheritedMethods = false;
 
   <<__Override>>
   protected function getSupportedOptions(): vec<CLIOptions\CLIOption> {
@@ -53,6 +54,13 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
         },
         'Hide all methods with the `private` accessability',
         '--hide-private-methods'
+      ),
+      CLIOptions\flag(
+        () ==> {
+          $this->hideInheritedMethods = true;
+        },
+        'Hide all methods that are inherited; only show methods directly defined',
+        '--hide-inherited-methods',
       ),
       CLIOptions\flag(
         () ==> { $this->verbosity++; },
@@ -153,6 +161,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
       'format' => $this->format,
       'syntaxHighlighting' => $this->syntaxHighlightingOn,
       'hidePrivateMethods' => $this->hidePrivateMethods,
+      'hideInheritedMethods' => $this->hideInheritedMethods,
     );
     $fmc = $this->frontMatterConfig;
     if ($fmc is nonnull) {

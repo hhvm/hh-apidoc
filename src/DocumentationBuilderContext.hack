@@ -15,6 +15,7 @@ class DocumentationBuilderContext {
     'format' => OutputFormat,
     'syntaxHighlighting' => bool,
     'hidePrivateMethods' => bool,
+    'hideInheritedMethods' => bool,
     ?'frontMatter' => PageSections\FrontMatter::TConfig,
   );
   /** Create an instance.
