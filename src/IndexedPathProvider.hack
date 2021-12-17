@@ -47,18 +47,18 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     return $this->paths->getPathForTrait($trait);
   }
 
-	private function isMethodDefined(
-		dict<string, Documentable> $index,
-		string $classish,
-		string $method,
-	): bool {
-		$parent = $index[$classish]['definition'] ?? null;
-		if (!$parent is ScannedClassish) {
-			return false;
-		}
+  private function isMethodDefined(
+    dict<string, Documentable> $index,
+    string $classish,
+    string $method,
+  ): bool {
+    $parent = $index[$classish]['definition'] ?? null;
+    if (!$parent is ScannedClassish) {
+      return false;
+    }
 
-		return C\any($parent->getMethods(), $m ==> $m->getName() === $method);
-	}
+    return C\any($parent->getMethods(), $m ==> $m->getName() === $method);
+  }
 
   public function getPathForClassMethod(
     string $class,
@@ -74,7 +74,9 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     string $interface,
     string $method,
   ): ?string {
-    if (!$this->isMethodDefined($this->index['interfaces'], $interface, $method)) {
+    if (
+      !$this->isMethodDefined($this->index['interfaces'], $interface, $method)
+    ) {
       return null;
     }
     return $this->paths->getPathForInterfaceMethod($interface, $method);
