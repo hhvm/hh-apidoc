@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Facebook\HHAPIDoc\PageSections\InterfaceSynopsis::getMethodList</title>
+<title>Facebook\HHAPIDoc\IndexedPathProvider::isMethodDefined</title>
 <style>
 /*
  *  Copyright (c) 2018-present, Facebook, Inc.
@@ -42,20 +42,22 @@
 </style>
 </head>
 <body>
-<h1>Facebook\HHAPIDoc\PageSections\InterfaceSynopsis::getMethodList()</h1>
-<pre><code class="language-Hack">private function getMethodList(
-  string $header,
-  vec&lt;(Facebook\DefinitionFinder\ScannedClassish, Facebook\DefinitionFinder\ScannedMethod)&gt; $methods,
-): ?string;
+<h1>Facebook\HHAPIDoc\IndexedPathProvider::isMethodDefined()</h1>
+<pre><code class="language-Hack">private function isMethodDefined(
+  dict&lt;string, Facebook\HHAPIDoc\Documentable&gt; $index,
+  string $classish,
+  string $method,
+): bool;
 </code></pre>
 <h2>Parameters</h2>
 <ul>
-<li><code>string $header</code></li>
-<li><code>vec&lt;(Facebook\DefinitionFinder\ScannedClassish, Facebook\DefinitionFinder\ScannedMethod)&gt; $methods</code></li>
+<li><code>dict&lt;string, Facebook\HHAPIDoc\Documentable&gt; $index</code></li>
+<li><code>string $classish</code></li>
+<li><code>string $method</code></li>
 </ul>
 <h2>Returns</h2>
 <ul>
-<li><code>?string</code></li>
+<li><code>bool</code></li>
 </ul>
 
 </body>

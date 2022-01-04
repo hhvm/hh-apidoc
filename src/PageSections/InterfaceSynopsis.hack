@@ -17,10 +17,43 @@ use type Facebook\DefinitionFinder\{
   ScannedMethod,
   ScannedTrait,
 };
-use namespace HH\Lib\{C, Str, Vec};
+use namespace HH\Lib\{C, Dict, Keyset, Str, Vec};
 
 /** Render the outline of a class, interface, or trait */
 final class InterfaceSynopsis extends PageSection {
+  private function walkMethods(
+    ScannedClassish $c,
+  ): dict<string, (ScannedClassish, ScannedMethod)> {
+    if ($c === null) {
+      return dict[];
+    }
+
+    $methods =
+      Dict\pull($c->getMethods(), $m ==> tuple($c, $m), $m ==> $m->getName());
+
+    $parents = Vec\filter_nulls(
+      Vec\concat(vec[$c->getParentClassName()], $c->getInterfaceNames()),
+    );
+
+    $index = $this->context->getIndex();
+    foreach ($parents as $parent) {
+      $parent = $index['classes'][$parent]['definition'] ??
+        $index['interfaces'][$parent]['definition'] ??
+        null;
+      if (!$parent is ScannedClassish) {
+        continue;
+      }
+      foreach ($this->walkMethods($parent) as $name => $data) {
+        if (C\contains_key($methods, $name)) {
+          continue;
+        }
+        $methods[$name] = $data;
+      }
+    }
+
+    return $methods;
+  }
+
   <<__Override>>
   public function getMarkdown(): ?string {
     $c = $this->definition;
@@ -28,77 +61,119 @@ final class InterfaceSynopsis extends PageSection {
       return null;
     }
 
-    $methods = vec[
-      $this->getMethodList(
-        '### Public Methods',
-        $c,
-        Vec\filter($c->getMethods(), $m ==> $m->isPublic()),
-      ),
-      $this->getMethodList(
-        '### Protected Methods',
-        $c,
-        Vec\filter($c->getMethods(), $m ==> $m->isProtected()),
-      ),
-      $this->context->getConfiguration()['hidePrivateMethods']
-        ? null
-        : $this->getMethodList(
-          '### Private Methods',
-          $c,
-          Vec\filter($c->getMethods(), $m ==> $m->isPrivate()),
+    $methods = vec($this->walkMethods($c));
+    $defining_classes = Keyset\map($methods, $cm ==> $cm[0]->getName());
+
+    $public_methods = vec[];
+    $protected_methods = vec[];
+    $private_methods = vec[];
+    foreach ($defining_classes as $dc) {
+      $suffix = $dc === $c->getName() ? '' : ' (`'.$dc.'`)';
+      $public_methods[] = $this->getMethodList(
+        '### Public Methods'.$suffix,
+        Vec\filter(
+          $methods,
+          $cm ==> $dc === $cm[0]->getName() && $cm[1]->isPublic(),
         ),
-    ];
+      );
+      $protected_methods[] = $this->getMethodList(
+        '### Protected Methods'.$suffix,
+        Vec\filter(
+          $methods,
+          $cm ==> $dc === $cm[0]->getName() && $cm[1]->isProtected(),
+        ),
+      );
+      if ($dc !== $c) {
+        // Never show inherited private methods
+        continue;
+      }
+      if ($this->context->getConfiguration()['hidePrivateMethods']) {
+        continue;
+      }
+      $private_methods[] = $this->getMethodList(
+        '### Private Methods'.$suffix,
+        Vec\filter(
+          $methods,
+          $cm ==> $dc === $cm[0]->getName() && $cm[1]->isPrivate(),
+        ),
+      );
+    }
 
     return "## Interface Synopsis\n\n".
       $this->getInheritanceInformation($c).
       "\n\n".
-      ($methods |> Vec\filter_nulls($$) |> Str\join($$, "\n\n"));
+      (
+        Vec\concat($public_methods, $protected_methods, $private_methods)
+        |> Vec\filter_nulls($$)
+        |> Str\join($$, "\n\n")
+      );
   }
 
   private function getMethodList(
     string $header,
-    ScannedClassish $c,
-    vec<ScannedMethod> $methods,
+    vec<(ScannedClassish, ScannedMethod)> $methods,
   ): ?string {
     if (C\is_empty($methods)) {
       return null;
     }
     return $methods
-      |> Vec\sort_by($$, $m ==> ($m->isStatic() ? 'a' : 'b').$m->getName())
-      |> Vec\map($$, $m ==> $this->getMethodListItem($c, $m))
+      |> Vec\sort_by(
+        $$,
+        $cm ==> ($cm[1]->isStatic() ? 'a' : 'b').$cm[1]->getName(),
+      )
+      |> Vec\map($$, $cm ==> $this->getMethodListItem($cm[0], $cm[1]))
       |> Str\join($$, "\n")
       |> $header."\n\n".$$."\n";
   }
 
   private function getMethodListItem(
-    ScannedClassish $c,
+    ScannedClassish $defining_class,
     ScannedMethod $m,
   ): string {
-    $ns = $c->getNamespaceName();
+    $ns = $defining_class->getNamespaceName();
     $docs = DocBlock::nullable($m->getDocComment());
 
-    $ret = $m->isStatic() ? '::' : '->';
-    $ret .= $m->getName();
-    $ret .= _Private\stringify_generics($ns, $m->getGenericTypes());
-    $ret .= _Private\stringify_parameters(
-      $c->getNamespaceName(),
-      _Private\StringifyFormat::ONE_LINE,
-      $m,
-      $docs,
-    );
+    $signature = ($m->isStatic() ? '::' : '->').
+      $m->getName().
+      _Private\stringify_generics($ns, $m->getGenericTypes()).
+      _Private\stringify_parameters(
+        $defining_class->getNamespaceName(),
+        _Private\StringifyFormat::ONE_LINE,
+        $m,
+        $docs,
+      );
 
     $rt = $m->getReturnType();
     if ($rt !== null) {
-      $ret .= ': '._Private\stringify_typehint($ns, $rt);
+      $signature .= ': '._Private\stringify_typehint($ns, $rt);
     }
 
-    $summary = $docs?->getSummary();
-
-    return \sprintf(
-      '- [`%s`](%s)%s',
-      $ret,
-      $this->getLinkPathForMethod($c, $m),
-      $summary === null ? '' : "\\\n".$summary,
+    $markdown = Str\format(
+      '- [`%s`](%s)',
+      $signature,
+      $this->getLinkPathForMethod($defining_class, $m) as nonnull,
     );
+
+    $summary = $docs?->getSummary();
+    if ($summary !== null) {
+      $markdown .= "\\\n".$summary;
+    }
+
+    return $markdown;
+  }
+
+  private function getLinkPathForClassish(ScannedClassish $c): ?string {
+    $pp = $this->context->getPathProvider();
+    if ($c is ScannedClass) {
+      return $pp->getPathForClass($c->getName());
+    }
+    if ($c is ScannedInterface) {
+      return $pp->getPathForInterface($c->getName());
+    }
+    if ($c is ScannedTrait) {
+      return $pp->getPathForTrait($c->getName());
+    }
+    invariant_violation("Don't know how to handle type %s", \get_class($c));
   }
 
   private function getLinkPathForMethod(

@@ -10,6 +10,7 @@
 namespace Facebook\HHAPIDoc;
 
 use namespace HH\Lib\C;
+use type Facebook\DefinitionFinder\ScannedClassish;
 
 /** A path provider that wraps another path provider, and returns `null` if
  * items aren't present in the index */
@@ -46,11 +47,24 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     return $this->paths->getPathForTrait($trait);
   }
 
+  private function isMethodDefined(
+    dict<string, Documentable> $index,
+    string $classish,
+    string $method,
+  ): bool {
+    $parent = $index[$classish]['definition'] ?? null;
+    if (!$parent is ScannedClassish) {
+      return false;
+    }
+
+    return C\any($parent->getMethods(), $m ==> $m->getName() === $method);
+  }
+
   public function getPathForClassMethod(
     string $class,
     string $method,
   ): ?string {
-    if (!C\contains_key($this->index['classes'][$class] ?? keyset[], $method)) {
+    if (!$this->isMethodDefined($this->index['classes'], $class, $method)) {
       return null;
     }
     return $this->paths->getPathForClassMethod($class, $method);
@@ -61,10 +75,7 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     string $method,
   ): ?string {
     if (
-      !C\contains_key(
-        $this->index['interfaces'][$interface] ?? keyset[],
-        $method,
-      )
+      !$this->isMethodDefined($this->index['interfaces'], $interface, $method)
     ) {
       return null;
     }
@@ -75,7 +86,7 @@ final class IndexedPathProvider implements IPathProvider<?string> {
     string $trait,
     string $method,
   ): ?string {
-    if (!C\contains_key($this->index['traits'][$trait] ?? keyset[], $method)) {
+    if (!$this->isMethodDefined($this->index['traits'], $trait, $method)) {
       return null;
     }
     return $this->paths->getPathForTraitMethod($trait, $method);

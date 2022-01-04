@@ -10,7 +10,7 @@
 namespace Facebook\HHAPIDoc;
 
 use namespace Facebook\Markdown;
-use namespace HH\Lib\{C, Keyset, Str, Vec};
+use namespace HH\Lib\{C, Str, Vec};
 
 /** Generate a document that contains links to all documented definitions. */
 class IndexDocumentBuilder {
@@ -69,17 +69,17 @@ class IndexDocumentBuilder {
       ),
       $this->renderPart(
         'Classes',
-        Keyset\keys($index['classes']),
+        $index['classes'],
         $name ==> $paths->getPathForClass($name),
       ),
       $this->renderPart(
         'Interfaces',
-        Keyset\keys($index['interfaces']),
+        $index['interfaces'],
         $name ==> $paths->getPathForInterface($name),
       ),
       $this->renderPart(
         'Traits',
-        Keyset\keys($index['traits']),
+        $index['traits'],
         $name ==> $paths->getPathForTrait($name),
       ),
       $this->renderPart(
@@ -110,15 +110,15 @@ class IndexDocumentBuilder {
    */
   protected function renderPart(
     string $title,
-    keyset<string> $names,
+    dict<string, Documentable> $entries,
     (function(string): ?string) $get_path,
   ): ?string {
-    if (C\is_empty($names)) {
+    if (C\is_empty($entries)) {
       return null;
     }
-    $names = Keyset\sort($names);
 
-    return $names
+    return $entries
+      |> Vec\keys($$)
       |> Vec\sort($$)
       |> Vec\map(
         $$,
