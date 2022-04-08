@@ -1,5 +1,6 @@
 {
     "roots": [ "src/" ],
     "devRoots": [],
-    "devFailureHandler": "Facebook\\AutoloadMap\\HHClientFallbackHandler"
+    "devFailureHandler": "Facebook\\AutoloadMap\\HHClientFallbackHandler",
+    "useFactsIfAvailable": true
 }
