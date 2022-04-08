@@ -132,7 +132,7 @@ final class GeneratorCLI extends CLIWithRequiredArguments {
           /* HHAST_IGNORE_ERROR[DontUseAsioJoin] */
           \HH\Asio\join(TreeParser::fromPathAsync($root)),
       )
-      |> Vec\map($$, $parser ==> Documentables\from_parser($parser))
+      |> Vec\map($$, Documentables\from_parser<>)
       |> Vec\flatten($$);
   }
 

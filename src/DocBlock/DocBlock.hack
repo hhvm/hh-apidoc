@@ -37,7 +37,7 @@ final class DocBlock {
       |> Str\strip_suffix($$, '*/')
       |> Str\trim($$)
       |> Str\split($$, "\n")
-      |> Vec\map($$, $l ==> Str\trim_left($l));
+      |> Vec\map($$, Str\trim_left<>);
 
     $content_lines = vec[];
     $finished_content = false;
@@ -238,7 +238,7 @@ final class DocBlock {
       |> Str\strip_prefix($$, '[')
       |> Str\strip_suffix($$, ']')
       |> Str\split($$, '|')
-      |> Vec\map($$, $x ==> Str\trim($x));
+      |> Vec\map($$, Str\trim<>);
   }
 
   /** Return information on function parameters from `@param` tags */
