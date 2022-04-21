@@ -11,5 +11,10 @@
   },
   "require-dev": {
     "hhvm/hhvm-autoload": "^2.0|^3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "hhvm/hhvm-autoload": true
+    }
   }
 }
