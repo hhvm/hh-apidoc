@@ -10,7 +10,7 @@
 namespace Facebook\HHAPIDoc;
 
 /** Contextual information required to build documentation. */
-class DocumentationBuilderContext {
+final class DocumentationBuilderContext {
   const type TConfig = shape(
     'format' => OutputFormat,
     'syntaxHighlighting' => bool,
