@@ -1,0 +1,30 @@
+{
+  "name": "hh-apidoc",
+  "runArgs": [
+    "--init",
+    "--env", "LC_ALL=C"
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "WORKSPACE": "${containerWorkspaceFolder}"
+    },
+    "context": ".."
+  },
+  "overrideCommand": false,
+
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "/bin/bash",
+        "args": [
+          "--login"
+        ]
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+
+  "extensions": [ "pranayagarwal.vscode-hack" ],
+  "postCreateCommand": ".deploy/init.sh"
+}
