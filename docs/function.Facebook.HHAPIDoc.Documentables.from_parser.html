@@ -45,12 +45,12 @@
 <h1>Facebook\HHAPIDoc\Documentables\from_parser()</h1>
 <p>Create <code>Documentable</code>s for all the supported defintions available
 in the <code>Facebook\DefinitionFinder\BaseParser</code></p>
-<pre><code class="language-Hack"><span class="hs-Script"><span class="hs-NamespaceDeclaration"><span class="hs-NamespaceDeclarationHeader"><span class="hs-NamespaceToken">namespace </span><span class="hs-QualifiedName"><span class="hs-ListItem"><span class="hs-NameToken">Facebook</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">HHAPIDoc</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">Documentables</span></span></span></span><span class="hs-NamespaceEmptyBody"><span class="hs-SemicolonToken">;
-</span></span></span><span class="hs-FunctionDeclaration"><span class="hs-FunctionDeclarationHeader"><span class="hs-FunctionToken">
-function </span><span class="hs-NameToken">from_parser</span><span class="hs-LeftParenToken">(
-</span><span class="hs-ListItem"><span class="hs-ParameterDeclaration"><span class="hs-SimpleTypeSpecifier"><span class="hs-QualifiedName"><span class="hs-ListItem"><span class="hs-BackslashToken">  \</span></span><span class="hs-ListItem"><span class="hs-NameToken">Facebook</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">DefinitionFinder</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">BaseParser </span></span></span></span><span class="hs-VariableToken">$parser</span></span><span class="hs-CommaToken">,
-</span></span><span class="hs-RightParenToken">)</span><span class="hs-ColonToken">: </span><span class="hs-VectorTypeSpecifier"><span class="hs-VecToken">vec</span><span class="hs-LessThanToken">&lt;</span><span class="hs-SimpleTypeSpecifier"><span class="hs-QualifiedName"><span class="hs-ListItem"><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">Facebook</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">HHAPIDoc</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">Documentable</span></span></span></span><span class="hs-GreaterThanToken">&gt;</span></span></span><span class="hs-SemicolonToken">;</span></span><span class="hs-EndOfFile"><span class="hs-EndOfFileToken"></span></span></span></code></pre>
+<pre><code class="language-Hack">namespace Facebook\HHAPIDoc\Documentables;
 
+function from_parser(
+  \Facebook\DefinitionFinder\BaseParser $parser,
+): vec&lt;\Facebook\HHAPIDoc\Documentable&gt;;
+</code></pre>
 <h2>Parameters</h2>
 <ul>
 <li><code>\Facebook\DefinitionFinder\BaseParser $parser</code></li>

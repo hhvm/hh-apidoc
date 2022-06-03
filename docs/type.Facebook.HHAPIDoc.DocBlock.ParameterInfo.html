@@ -44,14 +44,14 @@
 <body>
 <h1>Facebook\HHAPIDoc\DocBlock\ParameterInfo</h1>
 <p>The documentation information for a parameter</p>
-<pre><code class="language-Hack"><span class="hs-Script"><span class="hs-NamespaceDeclaration"><span class="hs-NamespaceDeclarationHeader"><span class="hs-NamespaceToken">namespace </span><span class="hs-QualifiedName"><span class="hs-ListItem"><span class="hs-NameToken">Facebook</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">HHAPIDoc</span><span class="hs-BackslashToken">\</span></span><span class="hs-ListItem"><span class="hs-NameToken">DocBlock</span></span></span></span><span class="hs-NamespaceEmptyBody"><span class="hs-SemicolonToken">;
-</span></span></span><span class="hs-AliasDeclaration"><span class="hs-TypeToken">
-type </span><span class="hs-NameToken">ParameterInfo </span><span class="hs-EqualToken">= </span><span class="hs-ShapeTypeSpecifier"><span class="hs-ShapeToken">shape</span><span class="hs-LeftParenToken">(
-</span><span class="hs-ListItem"><span class="hs-FieldSpecifier"><span class="hs-LiteralExpression"><span class="hs-SingleQuotedStringLiteralToken">  'name' </span></span><span class="hs-EqualGreaterThanToken">=&gt; </span><span class="hs-SimpleTypeSpecifier"><span class="hs-StringToken">string</span></span></span><span class="hs-CommaToken">,
-</span></span><span class="hs-ListItem"><span class="hs-FieldSpecifier"><span class="hs-LiteralExpression"><span class="hs-SingleQuotedStringLiteralToken">  'types' </span></span><span class="hs-EqualGreaterThanToken">=&gt; </span><span class="hs-VectorTypeSpecifier"><span class="hs-VecToken">vec</span><span class="hs-LessThanToken">&lt;</span><span class="hs-SimpleTypeSpecifier"><span class="hs-StringToken">string</span></span><span class="hs-GreaterThanToken">&gt;</span></span></span><span class="hs-CommaToken">,
-</span></span><span class="hs-ListItem"><span class="hs-FieldSpecifier"><span class="hs-LiteralExpression"><span class="hs-SingleQuotedStringLiteralToken">  'text' </span></span><span class="hs-EqualGreaterThanToken">=&gt; </span><span class="hs-NullableTypeSpecifier"><span class="hs-QuestionToken">?</span><span class="hs-SimpleTypeSpecifier"><span class="hs-StringToken">string</span></span></span></span><span class="hs-CommaToken">,
-</span></span><span class="hs-RightParenToken">)</span></span><span class="hs-SemicolonToken">;</span></span><span class="hs-EndOfFile"><span class="hs-EndOfFileToken"></span></span></span></code></pre>
+<pre><code class="language-Hack">namespace Facebook\HHAPIDoc\DocBlock;
 
+type ParameterInfo = shape(
+  'name' =&gt; string,
+  'types' =&gt; vec&lt;string&gt;,
+  'text' =&gt; ?string,
+);
+</code></pre>
 <h2>Fields</h2>
 <ul>
 <li><code>'name': string</code> - The name of the parameter</li>
