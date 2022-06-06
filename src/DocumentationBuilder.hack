@@ -13,7 +13,7 @@ use namespace Facebook\Markdown;
 use namespace HH\Lib\{Str, Vec};
 
 /** Main entrypoint to generate a document for a specific `Documentable` */
-class DocumentationBuilder {
+final class DocumentationBuilder {
   /**
    * Create a new instance.
    *

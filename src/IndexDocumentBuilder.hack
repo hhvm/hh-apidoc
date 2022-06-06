@@ -13,7 +13,7 @@ use namespace Facebook\Markdown;
 use namespace HH\Lib\{C, Str, Vec};
 
 /** Generate a document that contains links to all documented definitions. */
-class IndexDocumentBuilder {
+final class IndexDocumentBuilder {
   /** @selfdocumenting */
   public function __construct(
     private DocumentationBuilderContext $context,

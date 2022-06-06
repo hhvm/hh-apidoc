@@ -14,7 +14,7 @@ use type Facebook\HHAPIDoc\{Documentable, IPathProvider, OutputFormat};
 /** Context for rendering markdown using FBMarkdown and
  * hh-apidoc's extensions.
  */
-class RenderContext extends \Facebook\Markdown\RenderContext {
+final class RenderContext extends \Facebook\Markdown\RenderContext {
   private ?OutputFormat $format;
   private ?Documentable $documentable;
   private ?IPathProvider<?string> $pathProvider;
