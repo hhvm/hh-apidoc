@@ -12,4 +12,4 @@ namespace Facebook\HHAPIDoc\PageSections\_Private;
 enum StringifyFormat: string {
   ONE_LINE = 'oneline';
   MULTI_LINE = 'multiline';
-};
+}
